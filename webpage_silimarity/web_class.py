@@ -9,7 +9,7 @@ import re
 class Website_pages:
     def __init__(self,pagedir):
         self.fun_names=[]#stroe function names
-        self.
+        #self.
         
         self.feed(pagedir)
         pass
