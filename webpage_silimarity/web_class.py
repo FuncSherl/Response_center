@@ -4,7 +4,10 @@ Created on 2018��7��11��
 
 @author: sherl
 '''
-import re
+import re,os
+import os.path as op
+import numpy as np
+import matplotlib.pyplot as plt
 
 class Website_pages:
     def __init__(self,pagedir):
@@ -122,7 +125,47 @@ class Website_pages:
         return float(overlap)/(len(lis1)+len(lis2)-overlap)
         
     
+def start(dir):  
+    basepage_id=0
     
+    
+    veclis=[]
+    dirlis=map(lambda x:op.join(dir, x),os.listdir(dir))
+    basepage=Website_pages(dirlis[basepage_id])
+    
+    for i in dirlis:
+        tep=Website_pages(op.join(dir,i))
+        veclis.append(basepage.compare_to(tep))
+        print 'do:',i
+    
+    print 'get vectors:',len(veclis)
+    
+    dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
+    
+    sorted=np.sort(dislist)
+    args=dislist.argsort()
+    
+    plt.plot(args,sorted, 'r.')
+    plt.show()
+
+
+
+
+def cosdistance(lis1,lis2):#相似度最大为1，越大越相似
+    x=np.array(lis1)
+    y=np.array(lis2)
+    
+    return np.dot(x,y)/(np.linalg.norm(x)*np.linalg.norm(y))
+        
+    
+        
+        
+def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
+    x=np.array(lis1)
+    y=np.array(lis2)
+    #print x.dtype
+    return np.linalg.norm( x - y )
+        
     
     
     
@@ -135,8 +178,10 @@ if __name__ == '__main__':
     tep2=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/104.html')
     tep2.printout()
     
-    print tep.compare_to(tep2)
+    vec=tep.compare_to(tep2)
+    print cosdistance(vec,vec)
+    start(u'E:\wokmaterial\emergencyCenter\第一批首页')
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
     
     #print tep.gethref_name(r'<SCRIPT src="/js/comm/md5.js" type=text/javascript ></SCRIPT>')
-    pass
+    
