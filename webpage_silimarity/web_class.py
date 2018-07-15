@@ -122,11 +122,13 @@ class Website_pages:
             if i in lis2:
                 overlap+=1
         
-        return float(overlap)/(len(lis1)+len(lis2)-overlap)
+        if len(lis1)+len(lis2)>0:        
+            return float(overlap)/(len(lis1)+len(lis2)-overlap)
+        return 1
         
     
 def start(dir):  
-    basepage_id=0
+    basepage_id=1
     
     
     veclis=[]
@@ -142,10 +144,10 @@ def start(dir):
     
     dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
     
-    sorted=np.sort(dislist)
+    sortedd=np.sort(dislist)
     args=dislist.argsort()
     
-    plt.plot(args,sorted, 'r.')
+    plt.plot(args,sortedd, 'r.')
     plt.show()
 
 
@@ -172,15 +174,19 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
         
 
 if __name__ == '__main__':
+    paths=u'F:\网络中心\网站相似度匹配\第一批首页'
+    '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
     tep.printout()
     
     tep2=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/104.html')
     tep2.printout()
     
+    
     vec=tep.compare_to(tep2)
     print cosdistance(vec,vec)
-    start(u'E:\wokmaterial\emergencyCenter\第一批首页')
+    '''
+    start(paths)
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
     
     #print tep.gethref_name(r'<SCRIPT src="/js/comm/md5.js" type=text/javascript ></SCRIPT>')
