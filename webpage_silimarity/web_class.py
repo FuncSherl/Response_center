@@ -64,7 +64,7 @@ class Website_pages:
         
     def gethref_name(self,instr):#<link href="MonitorResource/login.css" rel="stylesheet" type="text/css" />    
         #<a href="Resource/Silverlight.exe" target="_blank">Siverlight控件下载</a>
-        restr=r'(a|link|script|img).*?(href|src|background)\s*=\s*[\"|\']?(http[s]?:)?[\/|\\]*([\w|\_|\/|\\|\.]+)[\"|\'|\s]+'
+        restr=r'(a|link|script|img).*?(href|src|background)\s*=\s*[\"|\']?(http[s]?:)?[\/|\\]*([\w|\_|\/|\\|\.]+)[\"|\'|\s|\?]+'
         
         it=re.finditer(restr, instr,re.I)
         tep=self.get_from_iter(it,4)
@@ -124,11 +124,11 @@ class Website_pages:
         
         if len(lis1)+len(lis2)>0:        
             return float(overlap)/(len(lis1)+len(lis2)-overlap)
-        return 1
+        return 0
         
     
 def start(dir):  
-    basepage_id=1
+    basepage_id=10
     
     
     veclis=[]
@@ -150,9 +150,11 @@ def start(dir):
     print args
     #plt.plot(sortedd, 'r.')
     #plt.show()
+    
+    print dirlis[basepage_id]
     for ind,i in enumerate(dislist):
         if i>0.8:
-            print dirlis[ind]
+            print dirlis[ind],":",i
             
 
 
