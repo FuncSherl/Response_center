@@ -8,6 +8,7 @@ import re,os
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
+from blaze.compute.core import base
 
 class Website_pages:
     def __init__(self,pagedir):
@@ -125,36 +126,55 @@ class Website_pages:
         if len(lis1)+len(lis2)>0:        
             return float(overlap)/(len(lis1)+len(lis2)-overlap)
         return 0
-        
+
+def judge_nonull(htmldir):
+    basepage=Website_pages(htmldir)
+    for i in basepage.allnames:
+        if len(basepage.allnames[i])<=1: return False
+    return True
+
     
 def start(dir):  
-    basepage_id=10
+    basepage_id=0
     
     
     veclis=[]
     dirlis=map(lambda x:op.join(dir, x),os.listdir(dir))
+    
+    while not judge_nonull(dirlis[basepage_id]):#get a page that with out null list
+        basepage_id+=1
+    
+    print "choose:",basepage_id
     basepage=Website_pages(dirlis[basepage_id])
     
     for i in dirlis:
         tep=Website_pages(op.join(dir,i))
         veclis.append(basepage.compare_to(tep))
-        print 'do:',i
+        #print 'do:',i
     
     print 'get vectors:',len(veclis)
     
     dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
+    dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
     
     sortedd=np.sort(dislist)
     args=dislist.argsort()
     
-    print args
+    #print args
     #plt.plot(sortedd, 'r.')
     #plt.show()
     
     print dirlis[basepage_id]
-    for ind,i in enumerate(dislist):
+    basepage.printout()
+    for ind,i in enumerate(sortedd):
         if i>0.8:
-            print dirlis[ind],":",i
+            tepdir=dirlis[args[ind]]
+            print tepdir,":",i
+            if ind<len(sortedd)-1:
+                print "前后俩个欧式距离为：",Euclidean_Distance(veclis[args[ind]],veclis[args[ind+1]])
+            tep=Website_pages(op.join(dir,tepdir))
+            tep.printout()
+            print basepage.compare_to(tep),'\n'
             
 
 
@@ -181,7 +201,8 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
         
 
 if __name__ == '__main__':
-    paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
+    paths=u'F:\网络中心\网站相似度匹配\第一批首页'
+    #paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
     '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
     tep.printout()
