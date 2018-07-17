@@ -135,13 +135,13 @@ def judge_nonull(htmldir):
 
     
 def start(dir):  
-    basepage_id=0
+    basepage_id=200
     
     
     veclis=[]
     dirlis=map(lambda x:op.join(dir, x),os.listdir(dir))
     
-    while not judge_nonull(dirlis[basepage_id]):#get a page that with out null list
+    while not judge_nonull(dirlis[basepage_id]):#get a page that without null list
         basepage_id+=1
     
     print "choose:",basepage_id
@@ -167,7 +167,7 @@ def start(dir):
     print dirlis[basepage_id]
     basepage.printout()
     for ind,i in enumerate(sortedd):
-        if i>0.8:
+        if i>0.1:
             tepdir=dirlis[args[ind]]
             print tepdir,":",i
             if ind<len(sortedd)-1:
@@ -201,8 +201,8 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
         
 
 if __name__ == '__main__':
-    paths=u'F:\网络中心\网站相似度匹配\第一批首页'
-    #paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
+    #paths=u'F:\网络中心\网站相似度匹配\第一批首页'
+    paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
     '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
     tep.printout()
