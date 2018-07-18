@@ -133,49 +133,94 @@ def judge_nonull(htmldir):
         if len(basepage.allnames[i])<=1: return False
     return True
 
+
+def get_groups(distsorte, argss, gap=0.1):#将结果分组
+    ret=[[]]
+    tep=distsorte[0]
+    for inx,i in enumerate(distsorte):
+        if abs(tep-i)>gap:
+            tep=i
+            ret.append([])
+        
+        ret[-1].append(argss[inx])
+    return ret
+
+def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的分组
+    ret=[]
+    for i in group1:
+        iset=set(i)
+        
+        for j in group2:
+            tepset=set(j)
+            t=iset.intersection(tepset)
+            if len(t)>0: ret.append(t)
+            iset.difference_update(tepset)
+        
+        if len(iset)>0:
+            ret.append(iset)
+            
+    return ret
+            
+            
+
     
 def start(dir):  
-    basepage_id=200
+    basepage_id=0
     
-    
-    veclis=[]
+    group_list=[]
     dirlis=map(lambda x:op.join(dir, x),os.listdir(dir))
     
-    while not judge_nonull(dirlis[basepage_id]):#get a page that without null list
+    while basepage_id<len(dirlis):
+        if  not judge_nonull(dirlis[basepage_id]):#get a page that without null list
+            basepage_id+=1
+            continue
+        
+        veclis=[]
+        print '\nchoose:',basepage_id
+        print dirlis[basepage_id]
+        basepage=Website_pages(dirlis[basepage_id])
+        
+        for i in dirlis:
+            tep=Website_pages(op.join(dir,i))
+            veclis.append(basepage.compare_to(tep))
+            #print 'do:',i
+        
+        print 'get vectors:',len(veclis)
+        
+        dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
+        dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
+        
+        sortedd=np.sort(dislist)
+        args=dislist.argsort()
+        
+        retgroups=get_groups(sortedd, args)
+        
+        group_list=merge_groups(retgroups,group_list)
+        
+        print 'groups:',len(group_list)
+        for i in group_list:
+            if len(i)>1: 
+                print i
+                for j in i:
+                    print "-->",dirlis[j]
+        
         basepage_id+=1
-    
-    print "choose:",basepage_id
-    basepage=Website_pages(dirlis[basepage_id])
-    
-    for i in dirlis:
-        tep=Website_pages(op.join(dir,i))
-        veclis.append(basepage.compare_to(tep))
-        #print 'do:',i
-    
-    print 'get vectors:',len(veclis)
-    
-    dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
-    dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
-    
-    sortedd=np.sort(dislist)
-    args=dislist.argsort()
-    
-    #print args
-    #plt.plot(sortedd, 'r.')
-    #plt.show()
-    
-    print dirlis[basepage_id]
-    basepage.printout()
-    for ind,i in enumerate(sortedd):
-        if i>0.1:
-            tepdir=dirlis[args[ind]]
-            print tepdir,":",i
-            if ind<len(sortedd)-1:
-                print "前后俩个欧式距离为：",Euclidean_Distance(veclis[args[ind]],veclis[args[ind+1]])
-            tep=Website_pages(op.join(dir,tepdir))
-            tep.printout()
-            print basepage.compare_to(tep),'\n'
-            
+        #print args
+        #plt.plot(sortedd, 'r.')
+        #plt.show()
+        
+        '''
+        basepage.printout()
+        for ind,i in enumerate(sortedd):
+            if i>0.1:
+                tepdir=dirlis[args[ind]]
+                print tepdir,":",i
+                if ind<len(sortedd)-1:
+                    print "前后俩个欧式距离为：",Euclidean_Distance(veclis[args[ind]],veclis[args[ind+1]])
+                tep=Website_pages(op.join(dir,tepdir))
+                tep.printout()
+                print basepage.compare_to(tep),'\n'
+        '''
 
 
 
