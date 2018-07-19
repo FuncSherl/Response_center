@@ -5,6 +5,7 @@ Created on 2018��7��11��
 @author: sherl
 '''
 import re,os
+
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
@@ -246,8 +247,8 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
         
 
 if __name__ == '__main__':
-    #paths=u'F:\网络中心\网站相似度匹配\第一批首页'
-    paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
+    paths=u'F:\网络中心\网站相似度匹配\第一批首页'
+    #paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
     '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
     tep.printout()
