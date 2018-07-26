@@ -9,7 +9,6 @@ import re,os
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
-from blaze.compute.core import base
 
 class Website_pages:
     def __init__(self,pagedir):
@@ -162,39 +161,48 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
             
     return ret
             
-            
+      
+
+def get_overlaprate(basepage_id, dirlis):#获取选定网页与所有的重叠度
+    veclis=[]
+    basepage=Website_pages(dirlis[basepage_id])
+        
+    for i in dirlis:
+        tep=Website_pages(i)
+        veclis.append(basepage.compare_to(tep))
+    return veclis
+         
+
+
 
     
-def start(dir):  
+def start(dir_web, threshhold):    #这里可以设置阈值，即距离达到多少判定为一组
+    dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))
+    
     basepage_id=0
     
     group_list=[]
-    dirlis=map(lambda x:op.join(dir, x),os.listdir(dir))
     
     while basepage_id<len(dirlis):
         if  not judge_nonull(dirlis[basepage_id]):#get a page that without null list
             basepage_id+=1
             continue
         
-        veclis=[]
+        
         print '\nchoose:',basepage_id
         print dirlis[basepage_id]
-        basepage=Website_pages(dirlis[basepage_id])
         
-        for i in dirlis:
-            tep=Website_pages(op.join(dir,i))
-            veclis.append(basepage.compare_to(tep))
-            #print 'do:',i
+        veclis=get_overlaprate(basepage_id, dirlis)#获取选定网页与所有的重叠度
         
-        print 'get vectors:',len(veclis)
+        print 'get vector len:',len(veclis)
         
         dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
-        dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
+        #dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
         sortedd=np.sort(dislist)
         args=dislist.argsort()
         
-        retgroups=get_groups(sortedd, args)
+        retgroups=get_groups(sortedd, args, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
         
         group_list=merge_groups(retgroups,group_list)
         
@@ -202,8 +210,10 @@ def start(dir):
         for i in group_list:
             if len(i)>1: 
                 print i
+                
                 for j in i:
-                    print "-->",dirlis[j]
+                    #print "-->",dirlis[j]
+                    pass
         
         basepage_id+=1
         #print args
@@ -218,10 +228,11 @@ def start(dir):
                 print tepdir,":",i
                 if ind<len(sortedd)-1:
                     print "前后俩个欧式距离为：",Euclidean_Distance(veclis[args[ind]],veclis[args[ind+1]])
-                tep=Website_pages(op.join(dir,tepdir))
+                tep=Website_pages(op.join(dir_web,tepdir))
                 tep.printout()
                 print basepage.compare_to(tep),'\n'
         '''
+    return group_list
 
 
 
@@ -241,13 +252,17 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
     #print x.dtype
     return np.linalg.norm( x - y )
         
-    
+
+def compare2groups(group1, group2):#以group1为主，比较group2与1的区别
+    for i in group2:
+        
+        pass
     
     
         
 
 if __name__ == '__main__':
-    paths=u'F:\网络中心\网站相似度匹配\第一批首页'
+    dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
     #paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
     '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
@@ -260,7 +275,14 @@ if __name__ == '__main__':
     vec=tep.compare_to(tep2)
     print cosdistance(vec,vec)
     '''
-    start(paths)
+    lenlis=[]
+    for i in range(1,100):
+        lenlis.append(len(start(dir_web, float(i)/100)))
+        
+    plt.plot(range(1,100), lenlis)
+    plt.show()
+    
+        
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
     
     #print tep.gethref_name(r'<SCRIPT src="/js/comm/md5.js" type=text/javascript ></SCRIPT>')
