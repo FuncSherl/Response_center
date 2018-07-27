@@ -262,8 +262,8 @@ def compare2groups(group1, group2):#以group1为主，比较group2与1的区别
         
 
 if __name__ == '__main__':
-    dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-    #paths=u'E:\wokmaterial\emergencyCenter\第一批首页'
+    #dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+    dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
     '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
     tep.printout()
