@@ -150,7 +150,7 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
     for i in group1:
         iset=set(i)
         
-        for j in group2:
+        for j in group2:#将1中的每一行与2中每一行获取交集作为一个新的分组
             tepset=set(j)
             t=iset.intersection(tepset)
             if len(t)>0: ret.append(t)
