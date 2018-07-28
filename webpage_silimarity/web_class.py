@@ -136,12 +136,15 @@ def judge_nonull(htmldir):
 
 def get_groups(distsorte, argss, gap=0.1):#将结果分组
     ret=[[]]
-    tep=distsorte[0]
+    tep=float(distsorte[0])
+    cnt=1
     for inx,i in enumerate(distsorte):
-        if abs(tep-i)>gap:
+        if abs(tep/cnt-i)>=gap:
             tep=i
+            cnt=1
             ret.append([])
-        
+        tep+=i
+        cnt+=1
         ret[-1].append(argss[inx])
     return ret
 
@@ -206,7 +209,7 @@ def start(dir_web, threshhold):    #这里可以设置阈值，即距离达到�
         
         group_list=merge_groups(retgroups,group_list)
         
-        print 'groups:',len(group_list)
+        print 'groups:',len(group_list),"  with threshold:",threshhold
         for i in group_list:
             if len(i)>1: 
                 print i
@@ -253,10 +256,21 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
     return np.linalg.norm( x - y )
         
 
-def compare2groups(group1, group2):#以group1为主，比较group2与1的区别
+def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
     for i in group2:
+        tepi=set(i)
         
-        pass
+        print tepi,"中："
+        for j in group1:
+            tepj=set(j)
+            ins=tepi.intersection(tepj)
+            if len(ins)>0:
+                print "-->",ins," len:",len(ins)," in:"
+                print "---->",tepj," len:",len(tepj)
+                
+                print "-->",map(lambda x:dirlis[x], ins)
+                print "---->",map(lambda x:dirlis[x], tepj)
+        
     
     
         
@@ -276,10 +290,10 @@ if __name__ == '__main__':
     print cosdistance(vec,vec)
     '''
     lenlis=[]
-    for i in range(1,100):
+    for i in range(1,50):
         lenlis.append(len(start(dir_web, float(i)/100)))
         
-    plt.plot(range(1,100), lenlis)
+    plt.plot(range(len(lenlis)), lenlis)
     plt.show()
     
         
