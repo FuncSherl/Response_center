@@ -134,7 +134,10 @@ def judge_nonull(htmldir):
     return True
 
 
-def get_groups(distsorte, argss, gap=0.1):#将结果分组
+def get_groups(dislist, gap=0.1):#将结果分组
+    distsorte=np.sort(dislist)
+    argss=dislist.argsort()
+    
     ret=[[]]
     tep=float(distsorte[0])
     cnt=1
@@ -164,24 +167,32 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
             
     return ret
             
-      
+#---------------------------------------------------------------------#   panel      
+dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
-def get_overlaprate(basepage_id, dirlis):#获取选定网页与所有的重叠度
+
+dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))      
+
+feather_list=[]
+for i in dirlis:
+    feather_list.append(Website_pages(i))
+
+def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
     veclis=[]
-    basepage=Website_pages(dirlis[basepage_id])
+    basepage=feather_list[basepage_id]   #Website_pages(dirlis[basepage_id])
         
-    for i in dirlis:
-        tep=Website_pages(i)
+    for ind,i in enumerate(dirlis):
+        #tep=Website_pages(i)
+        tep=feather_list[ind]
         veclis.append(basepage.compare_to(tep))
     return veclis
          
-
+         
 
 
     
-def start(dir_web, threshhold):    #这里可以设置阈值，即距离达到多少判定为一组
-    dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))
-    
+def start( threshhold):    #这里可以设置阈值，即距离达到多少判定为一组
     basepage_id=0
     
     group_list=[]
@@ -195,24 +206,28 @@ def start(dir_web, threshhold):    #这里可以设置阈值，即距离达到�
         print '\nchoose:',basepage_id
         print dirlis[basepage_id]
         
-        veclis=get_overlaprate(basepage_id, dirlis)#获取选定网页与所有的重叠度
+        veclis=get_overlaprate(basepage_id)#获取选定网页与所有的重叠度
         
         print 'get vector len:',len(veclis)
         
         dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
         #dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
-        sortedd=np.sort(dislist)
-        args=dislist.argsort()
         
-        retgroups=get_groups(sortedd, args, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
+        #sortedd=np.sort(dislist)
+        #args=dislist.argsort()
+        
+        retgroups=get_groups(dislist, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
         
         group_list=merge_groups(retgroups,group_list)
         
         print 'groups:',len(group_list),"  with threshold:",threshhold
+        
+        cnt_len=0
         for i in group_list:
             if len(i)>1: 
-                print i
+                cnt_len+=1
+                #print i
                 
                 for j in i:
                     #print "-->",dirlis[j]
@@ -235,6 +250,7 @@ def start(dir_web, threshhold):    #这里可以设置阈值，即距离达到�
                 tep.printout()
                 print basepage.compare_to(tep),'\n'
         '''
+    print "the final groups len:",len(group_list)," with threshhold:",threshhold," len>2 is:",cnt_len
     return group_list
 
 
@@ -257,27 +273,29 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
         
 
 def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
+    if len(group1)<=0 or len(group2)<=0:
+        return None
+    
     for i in group2:
         tepi=set(i)
         
-        print tepi,"中："
         for j in group1:
             tepj=set(j)
-            ins=tepi.intersection(tepj)
-            if len(ins)>0:
+            ins=tepi.intersection(tepj)#交际
+            
+            if len(ins)>0 and (len(tepi) + len(tepj))>2 and not(len(ins)==len(tepi) and len(ins)==len(tepj)):
+                print '\ngroup2:',tepi,'\nlen:',len(tepi)," 中："
                 print "-->",ins," len:",len(ins)," in:"
-                print "---->",tepj," len:",len(tepj)
+                print "---->group1",tepj," len:",len(tepj)
                 
-                print "-->",map(lambda x:dirlis[x], ins)
-                print "---->",map(lambda x:dirlis[x], tepj)
+                print "-->",map(lambda x:op.split(dirlis[x])[-1], ins)
+                print "---->",map(lambda x:op.split(dirlis[x])[-1], tepj)
         
     
     
         
 
 if __name__ == '__main__':
-    #dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-    dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
     '''
     tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
     tep.printout()
@@ -289,9 +307,13 @@ if __name__ == '__main__':
     vec=tep.compare_to(tep2)
     print cosdistance(vec,vec)
     '''
+    before=[]
     lenlis=[]
     for i in range(1,50):
-        lenlis.append(len(start(dir_web, float(i)/100)))
+        tep=start( float(i)/100)
+        lenlis.append(len(tep))
+        compare2groups(before, tep, dirlis)
+        before=tep
         
     plt.plot(range(len(lenlis)), lenlis)
     plt.show()
