@@ -178,6 +178,8 @@ feather_list=[]
 for i in dirlis:
     feather_list.append(Website_pages(i))
 
+fp=open("./log.txt","w+")
+
 def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
     veclis=[]
     basepage=feather_list[basepage_id]   #Website_pages(dirlis[basepage_id])
@@ -275,7 +277,7 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
 def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
     if len(group1)<=0 or len(group2)<=0:
         return None
-    
+    fp.write('compare start!\n')
     for i in group2:
         tepi=set(i)
         
@@ -290,6 +292,14 @@ def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1�
                 
                 print "-->",map(lambda x:op.split(dirlis[x])[-1], ins)
                 print "---->",map(lambda x:op.split(dirlis[x])[-1], tepj)
+                
+                fp.write( '\ngroup2:'+str(tepi)+'\nlen:'+str(len(tepi))+' 中：\n')
+                fp.write( "-->"+str(ins)+" len:"+str(len(ins))+' in:\n')
+                fp.write( "---->group1"+str(tepj)+" len:"+str(len(tepj))+'\n')
+                
+                fp.write( "-->"+str(map(lambda x:op.split(dirlis[x])[-1], ins))+'\n')
+                fp.write( "---->"+str(map(lambda x:op.split(dirlis[x])[-1], tepj))+'\n')
+    
         
     
     
@@ -313,11 +323,14 @@ if __name__ == '__main__':
         tep=start( float(i)/100)
         lenlis.append(len(tep))
         compare2groups(before, tep, dirlis)
+        fp.write("compare to group2 with threshhold:"+str(float(i)/100)+ " done!\n\n\n")
+        
         before=tep
         
     plt.plot(range(len(lenlis)), lenlis)
     plt.show()
     
+    fp.close()
         
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
     
