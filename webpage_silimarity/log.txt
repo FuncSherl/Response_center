@@ -1,9 +1,13 @@
+
+
+get group len:224 len>=2 is:40
 compare to group2 with threshhold:0.01 done!
 
 
 
 
 
+get group len:224 len>=2 is:40
 compare start!
 compare to group2 with threshhold:0.02 done!
 
@@ -11,6 +15,7 @@ compare to group2 with threshhold:0.02 done!
 
 
 
+get group len:219 len>=2 is:37
 compare start!
 
 group2:set([225, 226, 227, 228, 241, 242, 221])
@@ -88,6 +93,7 @@ compare to group2 with threshhold:0.03 done!
 
 
 
+get group len:216 len>=2 is:39
 compare start!
 
 group2:set([51, 38, 39])
@@ -158,6 +164,7 @@ compare to group2 with threshhold:0.04 done!
 
 
 
+get group len:216 len>=2 is:39
 compare start!
 
 group2:set([51])
@@ -221,6 +228,7 @@ compare to group2 with threshhold:0.05 done!
 
 
 
+get group len:215 len>=2 is:37
 compare start!
 
 group2:set([51, 38, 39])
@@ -312,6 +320,7 @@ compare to group2 with threshhold:0.06 done!
 
 
 
+get group len:210 len>=2 is:38
 compare start!
 
 group2:set([48, 98, 211, 343, 106, 91])
@@ -375,6 +384,7 @@ compare to group2 with threshhold:0.07 done!
 
 
 
+get group len:213 len>=2 is:39
 compare start!
 
 group2:set([225, 242, 227, 228, 231, 241])
@@ -424,6 +434,7 @@ compare to group2 with threshhold:0.08 done!
 
 
 
+get group len:212 len>=2 is:39
 compare start!
 
 group2:set([225, 226, 227, 228, 231, 241, 242, 221])
@@ -515,6 +526,7 @@ compare to group2 with threshhold:0.09 done!
 
 
 
+get group len:214 len>=2 is:40
 compare start!
 
 group2:set([281, 283])
@@ -550,6 +562,7 @@ compare to group2 with threshhold:0.1 done!
 
 
 
+get group len:213 len>=2 is:40
 compare start!
 
 group2:set([48])
@@ -599,6 +612,7 @@ compare to group2 with threshhold:0.11 done!
 
 
 
+get group len:214 len>=2 is:37
 compare start!
 
 group2:set([231])
@@ -669,6 +683,7 @@ compare to group2 with threshhold:0.12 done!
 
 
 
+get group len:215 len>=2 is:38
 compare start!
 
 group2:set([38, 39])
@@ -739,6 +754,7 @@ compare to group2 with threshhold:0.13 done!
 
 
 
+get group len:216 len>=2 is:38
 compare start!
 
 group2:set([68])
@@ -781,6 +797,7 @@ compare to group2 with threshhold:0.14 done!
 
 
 
+get group len:213 len>=2 is:39
 compare start!
 
 group2:set([51, 38, 39])
@@ -858,6 +875,7 @@ compare to group2 with threshhold:0.15 done!
 
 
 
+get group len:213 len>=2 is:37
 compare start!
 
 group2:set([247])
@@ -914,6 +932,7 @@ compare to group2 with threshhold:0.16 done!
 
 
 
+get group len:208 len>=2 is:39
 compare start!
 
 group2:set([10, 215])
@@ -998,6 +1017,7 @@ compare to group2 with threshhold:0.17 done!
 
 
 
+get group len:207 len>=2 is:38
 compare start!
 
 group2:set([32, 42, 199, 118, 247])
@@ -1019,6 +1039,7 @@ compare to group2 with threshhold:0.18 done!
 
 
 
+get group len:206 len>=2 is:38
 compare start!
 
 group2:set([10, 187, 215])
@@ -1040,6 +1061,7 @@ compare to group2 with threshhold:0.19 done!
 
 
 
+get group len:206 len>=2 is:38
 compare start!
 compare to group2 with threshhold:0.2 done!
 
@@ -1047,6 +1069,7 @@ compare to group2 with threshhold:0.2 done!
 
 
 
+get group len:205 len>=2 is:38
 compare start!
 
 group2:set([209, 194, 172])
@@ -1068,6 +1091,7 @@ compare to group2 with threshhold:0.21 done!
 
 
 
+get group len:205 len>=2 is:38
 compare start!
 compare to group2 with threshhold:0.22 done!
 
@@ -1075,6 +1099,7 @@ compare to group2 with threshhold:0.22 done!
 
 
 
+get group len:207 len>=2 is:40
 compare start!
 
 group2:set([225, 242, 227, 228, 241])
@@ -1110,6 +1135,7 @@ compare to group2 with threshhold:0.23 done!
 
 
 
+get group len:206 len>=2 is:38
 compare start!
 
 group2:set([231])
@@ -1152,6 +1178,7 @@ compare to group2 with threshhold:0.24 done!
 
 
 
+get group len:204 len>=2 is:38
 compare start!
 
 group2:set([225, 226, 227, 228, 231, 241, 242, 221])
@@ -1215,6 +1242,7 @@ compare to group2 with threshhold:0.25 done!
 
 
 
+get group len:204 len>=2 is:38
 compare start!
 compare to group2 with threshhold:0.26 done!
 
@@ -1222,6 +1250,7 @@ compare to group2 with threshhold:0.26 done!
 
 
 
+get group len:203 len>=2 is:37
 compare start!
 
 group2:set([229, 76, 235, 236, 237, 239, 240, 243, 84, 244, 219, 220, 222])
@@ -1243,6 +1272,7 @@ compare to group2 with threshhold:0.27 done!
 
 
 
+get group len:203 len>=2 is:37
 compare start!
 compare to group2 with threshhold:0.28 done!
 
@@ -1250,6 +1280,7 @@ compare to group2 with threshhold:0.28 done!
 
 
 
+get group len:203 len>=2 is:37
 compare start!
 compare to group2 with threshhold:0.29 done!
 
@@ -1257,6 +1288,7 @@ compare to group2 with threshhold:0.29 done!
 
 
 
+get group len:203 len>=2 is:37
 compare start!
 compare to group2 with threshhold:0.3 done!
 
@@ -1264,6 +1296,7 @@ compare to group2 with threshhold:0.3 done!
 
 
 
+get group len:203 len>=2 is:38
 compare start!
 
 group2:set([209, 194, 172])
@@ -1299,6 +1332,7 @@ compare to group2 with threshhold:0.31 done!
 
 
 
+get group len:204 len>=2 is:38
 compare start!
 
 group2:set([194, 172])
@@ -1320,6 +1354,7 @@ compare to group2 with threshhold:0.32 done!
 
 
 
+get group len:204 len>=2 is:38
 compare start!
 compare to group2 with threshhold:0.33 done!
 
@@ -1327,6 +1362,7 @@ compare to group2 with threshhold:0.33 done!
 
 
 
+get group len:204 len>=2 is:38
 compare start!
 compare to group2 with threshhold:0.34 done!
 
@@ -1334,6 +1370,7 @@ compare to group2 with threshhold:0.34 done!
 
 
 
+get group len:204 len>=2 is:38
 compare start!
 compare to group2 with threshhold:0.35 done!
 
@@ -1341,6 +1378,7 @@ compare to group2 with threshhold:0.35 done!
 
 
 
+get group len:202 len>=2 is:39
 compare start!
 
 group2:set([311, 10, 187, 215])
@@ -1404,6 +1442,7 @@ compare to group2 with threshhold:0.36 done!
 
 
 
+get group len:202 len>=2 is:39
 compare start!
 compare to group2 with threshhold:0.37 done!
 
@@ -1411,6 +1450,7 @@ compare to group2 with threshhold:0.37 done!
 
 
 
+get group len:201 len>=2 is:40
 compare start!
 
 group2:set([209, 194, 172])
@@ -1460,6 +1500,7 @@ compare to group2 with threshhold:0.38 done!
 
 
 
+get group len:195 len>=2 is:41
 compare start!
 
 group2:set([116, 6])
@@ -1572,6 +1613,7 @@ compare to group2 with threshhold:0.39 done!
 
 
 
+get group len:191 len>=2 is:42
 compare start!
 
 group2:set([73, 10, 187, 215, 311])
@@ -1635,6 +1677,7 @@ compare to group2 with threshhold:0.4 done!
 
 
 
+get group len:186 len>=2 is:42
 compare start!
 
 group2:set([247])
@@ -1768,6 +1811,7 @@ compare to group2 with threshhold:0.41 done!
 
 
 
+get group len:185 len>=2 is:43
 compare start!
 
 group2:set([118, 247])
@@ -1789,6 +1833,7 @@ compare to group2 with threshhold:0.42 done!
 
 
 
+get group len:178 len>=2 is:45
 compare start!
 
 group2:set([147, 140])
@@ -1894,6 +1939,7 @@ compare to group2 with threshhold:0.43 done!
 
 
 
+get group len:178 len>=2 is:45
 compare start!
 compare to group2 with threshhold:0.44 done!
 
@@ -1901,6 +1947,7 @@ compare to group2 with threshhold:0.44 done!
 
 
 
+get group len:173 len>=2 is:45
 compare start!
 
 group2:set([89, 213])
@@ -1971,6 +2018,7 @@ compare to group2 with threshhold:0.45 done!
 
 
 
+get group len:158 len>=2 is:46
 compare start!
 
 group2:set([16, 202])
@@ -2160,6 +2208,7 @@ compare to group2 with threshhold:0.46 done!
 
 
 
+get group len:149 len>=2 is:46
 compare start!
 
 group2:set([16, 202, 15])
@@ -2279,6 +2328,7 @@ compare to group2 with threshhold:0.47 done!
 
 
 
+get group len:105 len>=2 is:48
 compare start!
 
 group2:set([324, 85, 86])
@@ -2783,6 +2833,7 @@ compare to group2 with threshhold:0.48 done!
 
 
 
+get group len:38 len>=2 is:23
 compare start!
 
 group2:set([324, 197, 6, 202, 12, 13, 14, 143, 16, 213, 86, 89, 15, 99, 103, 196, 116, 126, 85])

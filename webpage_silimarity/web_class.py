@@ -285,7 +285,7 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
 def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
     if len(group1)<=0 or len(group2)<=0:
         return None
-    fp.write('\n\ncompare start!\n')
+    fp.write('compare start!\n')
     for i in group2:
         tepi=set(i)
         
@@ -330,15 +330,20 @@ if __name__ == '__main__':
     for i in range(1,50):
         tep=start( float(i)/100)
         lenlis.append(len(tep))
+        
+        lenlist=np.array(map(lambda x:len(x), tep))
+        
+        fp.write("\n\nget group len:"+str(len(tep))+' len>=2 is:'+str(sum((lenlist>=2)))+'\n')
         compare2groups(before, tep, dirlis)
         fp.write("compare to group2 with threshhold:"+str(float(i)/100)+ " done!\n\n\n\n")
         
         before=tep
-        
+    
+    fp.close()   
     plt.plot(range(len(lenlis)), lenlis)
     plt.show()
     
-    fp.close()
+    
         
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
     
