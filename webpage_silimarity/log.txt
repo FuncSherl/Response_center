@@ -1,8 +1,14 @@
 compare to group2 with threshhold:0.01 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.02 done!
+
+
+
 
 
 compare start!
@@ -79,6 +85,9 @@ len:29 中：
 compare to group2 with threshhold:0.03 done!
 
 
+
+
+
 compare start!
 
 group2:set([51, 38, 39])
@@ -146,6 +155,9 @@ len:7 中：
 compare to group2 with threshhold:0.04 done!
 
 
+
+
+
 compare start!
 
 group2:set([51])
@@ -204,6 +216,9 @@ len:2 中：
 -->[u'369.html']
 ---->[u'369.html']
 compare to group2 with threshhold:0.05 done!
+
+
+
 
 
 compare start!
@@ -294,6 +309,9 @@ len:1 中：
 compare to group2 with threshhold:0.06 done!
 
 
+
+
+
 compare start!
 
 group2:set([48, 98, 211, 343, 106, 91])
@@ -354,6 +372,9 @@ len:7 中：
 compare to group2 with threshhold:0.07 done!
 
 
+
+
+
 compare start!
 
 group2:set([225, 242, 227, 228, 231, 241])
@@ -398,6 +419,9 @@ len:27 中：
 -->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
 ---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'685.html', u'686.html', u'687.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
 compare to group2 with threshhold:0.08 done!
+
+
+
 
 
 compare start!
@@ -488,6 +512,9 @@ len:29 中：
 compare to group2 with threshhold:0.09 done!
 
 
+
+
+
 compare start!
 
 group2:set([281, 283])
@@ -518,6 +545,9 @@ len:1 中：
 -->[u'161.html']
 ---->[u'161.html', u'6.html', u'508.html']
 compare to group2 with threshhold:0.1 done!
+
+
+
 
 
 compare start!
@@ -564,6 +594,9 @@ len:3 中：
 -->[u'161.html']
 ---->[u'161.html']
 compare to group2 with threshhold:0.11 done!
+
+
+
 
 
 compare start!
@@ -633,6 +666,9 @@ len:29 中：
 compare to group2 with threshhold:0.12 done!
 
 
+
+
+
 compare start!
 
 group2:set([38, 39])
@@ -700,6 +736,9 @@ len:2 中：
 compare to group2 with threshhold:0.13 done!
 
 
+
+
+
 compare start!
 
 group2:set([68])
@@ -737,6 +776,9 @@ len:1 中：
 -->[u'161.html']
 ---->[u'161.html', u'508.html']
 compare to group2 with threshhold:0.14 done!
+
+
+
 
 
 compare start!
@@ -813,6 +855,9 @@ len:3 中：
 compare to group2 with threshhold:0.15 done!
 
 
+
+
+
 compare start!
 
 group2:set([247])
@@ -864,6 +909,9 @@ len:1 中：
 -->[u'161.html']
 ---->[u'161.html', u'508.html', u'6.html']
 compare to group2 with threshhold:0.16 done!
+
+
+
 
 
 compare start!
@@ -947,6 +995,9 @@ len:2 中：
 compare to group2 with threshhold:0.17 done!
 
 
+
+
+
 compare start!
 
 group2:set([32, 42, 199, 118, 247])
@@ -963,6 +1014,9 @@ len:5 中：
 -->[u'175.html', u'188.html', u'55.html']
 ---->[u'175.html', u'188.html', u'55.html']
 compare to group2 with threshhold:0.18 done!
+
+
+
 
 
 compare start!
@@ -983,8 +1037,14 @@ len:3 中：
 compare to group2 with threshhold:0.19 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.2 done!
+
+
+
 
 
 compare start!
@@ -1005,8 +1065,14 @@ len:3 中：
 compare to group2 with threshhold:0.21 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.22 done!
+
+
+
 
 
 compare start!
@@ -1039,6 +1105,9 @@ len:27 中：
 -->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
 ---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'685.html', u'686.html', u'687.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
 compare to group2 with threshhold:0.23 done!
+
+
+
 
 
 compare start!
@@ -1078,6 +1147,9 @@ len:9 中：
 -->[u'583.html', u'332.html']
 ---->[u'583.html', u'332.html']
 compare to group2 with threshhold:0.24 done!
+
+
+
 
 
 compare start!
@@ -1140,8 +1212,14 @@ len:29 中：
 compare to group2 with threshhold:0.25 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.26 done!
+
+
+
 
 
 compare start!
@@ -1162,16 +1240,28 @@ len:13 中：
 compare to group2 with threshhold:0.27 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.28 done!
+
+
+
 
 
 compare start!
 compare to group2 with threshhold:0.29 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.3 done!
+
+
+
 
 
 compare start!
@@ -1206,6 +1296,9 @@ len:2 中：
 compare to group2 with threshhold:0.31 done!
 
 
+
+
+
 compare start!
 
 group2:set([194, 172])
@@ -1224,16 +1317,28 @@ len:1 中：
 compare to group2 with threshhold:0.32 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.33 done!
+
+
+
 
 
 compare start!
 compare to group2 with threshhold:0.34 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.35 done!
+
+
+
 
 
 compare start!
@@ -1296,8 +1401,14 @@ len:28 中：
 compare to group2 with threshhold:0.36 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.37 done!
+
+
+
 
 
 compare start!
@@ -1344,6 +1455,9 @@ len:12 中：
 -->[u'757.html', u'769.html', u'494.html', u'385.html', u'743.html', u'744.html', u'745.html', u'746.html', u'747.html', u'748.html', u'749.html']
 ---->[u'757.html', u'769.html', u'494.html', u'747.html', u'743.html', u'744.html', u'745.html', u'746.html', u'385.html', u'748.html', u'749.html']
 compare to group2 with threshhold:0.38 done!
+
+
+
 
 
 compare start!
@@ -1455,6 +1569,9 @@ len:14 中：
 compare to group2 with threshhold:0.39 done!
 
 
+
+
+
 compare start!
 
 group2:set([73, 10, 187, 215, 311])
@@ -1513,6 +1630,9 @@ len:2 中：
 -->[u'732.html']
 ---->[u'732.html']
 compare to group2 with threshhold:0.4 done!
+
+
+
 
 
 compare start!
@@ -1645,6 +1765,9 @@ len:30 中：
 compare to group2 with threshhold:0.41 done!
 
 
+
+
+
 compare start!
 
 group2:set([118, 247])
@@ -1661,6 +1784,9 @@ len:2 中：
 -->[u'369.html']
 ---->[u'369.html']
 compare to group2 with threshhold:0.42 done!
+
+
+
 
 
 compare start!
@@ -1765,8 +1891,14 @@ len:31 中：
 compare to group2 with threshhold:0.43 done!
 
 
+
+
+
 compare start!
 compare to group2 with threshhold:0.44 done!
+
+
+
 
 
 compare start!
@@ -1834,6 +1966,9 @@ len:18 中：
 -->[u'178.html', u'757.html', u'769.html', u'494.html', u'385.html', u'505.html', u'747.html', u'746.html', u'370.html', u'743.html', u'744.html', u'745.html', u'314.html', u'98.html', u'748.html', u'749.html']
 ---->[u'757.html', u'769.html', u'314.html', u'98.html', u'178.html', u'494.html', u'505.html', u'747.html', u'370.html', u'743.html', u'744.html', u'745.html', u'746.html', u'385.html', u'748.html', u'749.html']
 compare to group2 with threshhold:0.45 done!
+
+
+
 
 
 compare start!
@@ -2022,6 +2157,9 @@ len:43 中：
 compare to group2 with threshhold:0.46 done!
 
 
+
+
+
 compare start!
 
 group2:set([16, 202, 15])
@@ -2136,6 +2274,9 @@ len:51 中：
 -->[u'653.html', u'4.html', u'657.html', u'658.html', u'659.html', u'431.html', u'504.html', u'449.html', u'450.html', u'150.html', u'161.html', u'165.html', u'478.html', u'702.html', u'484.html', u'486.html', u'487.html', u'191.html', u'6.html', u'508.html', u'723.html', u'724.html', u'200.html', u'732.html', u'523.html', u'222.html', u'531.html', u'233.html', u'246.html', u'554.html', u'257.html', u'56.html', u'264.html', u'266.html', u'777.html', u'273.html', u'583.html', u'80.html', u'322.html', u'332.html', u'351.html', u'373.html', u'388.html']
 ---->[u'653.html', u'4.html', u'657.html', u'658.html', u'659.html', u'431.html', u'191.html', u'449.html', u'450.html', u'150.html', u'161.html', u'165.html', u'478.html', u'702.html', u'484.html', u'486.html', u'487.html', u'322.html', u'504.html', u'508.html', u'723.html', u'724.html', u'200.html', u'732.html', u'523.html', u'222.html', u'531.html', u'233.html', u'246.html', u'554.html', u'257.html', u'56.html', u'264.html', u'266.html', u'777.html', u'273.html', u'583.html', u'80.html', u'6.html', u'332.html', u'351.html', u'373.html', u'388.html']
 compare to group2 with threshhold:0.47 done!
+
+
+
 
 
 compare start!
@@ -2637,6 +2778,9 @@ len:59 中：
 -->[u'653.html', u'4.html', u'657.html', u'658.html', u'659.html', u'422.html', u'431.html', u'504.html', u'449.html', u'450.html', u'150.html', u'161.html', u'465.html', u'165.html', u'176.html', u'478.html', u'702.html', u'484.html', u'486.html', u'487.html', u'191.html', u'6.html', u'508.html', u'723.html', u'724.html', u'200.html', u'732.html', u'523.html', u'219.html', u'222.html', u'229.html', u'233.html', u'750.html', u'246.html', u'550.html', u'554.html', u'257.html', u'774.html', u'56.html', u'264.html', u'266.html', u'777.html', u'273.html', u'583.html', u'80.html', u'322.html', u'332.html', u'531.html', u'351.html', u'373.html', u'388.html']
 ---->[u'653.html', u'4.html', u'657.html', u'658.html', u'659.html', u'422.html', u'431.html', u'191.html', u'449.html', u'450.html', u'150.html', u'161.html', u'465.html', u'165.html', u'176.html', u'478.html', u'702.html', u'484.html', u'486.html', u'487.html', u'322.html', u'504.html', u'508.html', u'723.html', u'724.html', u'200.html', u'732.html', u'523.html', u'219.html', u'222.html', u'229.html', u'233.html', u'750.html', u'246.html', u'550.html', u'554.html', u'257.html', u'774.html', u'56.html', u'264.html', u'266.html', u'777.html', u'273.html', u'583.html', u'80.html', u'6.html', u'332.html', u'531.html', u'351.html', u'373.html', u'388.html']
 compare to group2 with threshhold:0.48 done!
+
+
+
 
 
 compare start!
@@ -3243,5 +3387,6 @@ len:71 中：
 -->[u'653.html', u'4.html', u'657.html', u'658.html', u'659.html', u'422.html', u'431.html', u'504.html', u'445.html', u'449.html', u'450.html', u'150.html', u'152.html', u'161.html', u'465.html', u'165.html', u'176.html', u'478.html', u'702.html', u'484.html', u'486.html', u'487.html', u'191.html', u'6.html', u'508.html', u'723.html', u'724.html', u'200.html', u'206.html', u'732.html', u'738.html', u'523.html', u'219.html', u'222.html', u'229.html', u'233.html', u'750.html', u'541.html', u'246.html', u'550.html', u'554.html', u'257.html', u'774.html', u'56.html', u'264.html', u'266.html', u'777.html', u'273.html', u'279.html', u'578.html', u'583.html', u'80.html', u'322.html', u'332.html', u'531.html', u'351.html', u'373.html', u'645.html', u'388.html']
 ---->[u'653.html', u'4.html', u'657.html', u'658.html', u'659.html', u'422.html', u'431.html', u'191.html', u'445.html', u'449.html', u'450.html', u'150.html', u'152.html', u'161.html', u'465.html', u'165.html', u'176.html', u'478.html', u'702.html', u'484.html', u'486.html', u'487.html', u'322.html', u'504.html', u'508.html', u'723.html', u'724.html', u'200.html', u'206.html', u'732.html', u'738.html', u'523.html', u'219.html', u'222.html', u'229.html', u'233.html', u'750.html', u'541.html', u'246.html', u'550.html', u'554.html', u'257.html', u'774.html', u'56.html', u'264.html', u'266.html', u'777.html', u'273.html', u'279.html', u'578.html', u'583.html', u'80.html', u'6.html', u'332.html', u'531.html', u'351.html', u'373.html', u'645.html', u'388.html']
 compare to group2 with threshhold:0.49 done!
+
 
 

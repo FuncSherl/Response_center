@@ -174,10 +174,12 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
     return ret
             
 #---------------------------------------------------------------------#   panel      
-#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
+dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
 
+
+#---------------------------------------------------------------------#
 dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))      
 
 feather_list=[]
@@ -283,7 +285,7 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
 def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
     if len(group1)<=0 or len(group2)<=0:
         return None
-    fp.write('compare start!\n')
+    fp.write('\n\ncompare start!\n')
     for i in group2:
         tepi=set(i)
         
@@ -329,7 +331,7 @@ if __name__ == '__main__':
         tep=start( float(i)/100)
         lenlis.append(len(tep))
         compare2groups(before, tep, dirlis)
-        fp.write("compare to group2 with threshhold:"+str(float(i)/100)+ " done!\n\n\n")
+        fp.write("compare to group2 with threshhold:"+str(float(i)/100)+ " done!\n\n\n\n")
         
         before=tep
         
