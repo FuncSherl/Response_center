@@ -11,6 +11,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Website_pages:
+    '''
+    1.提取function XXX()中的函数名字
+    2.提取input等中的name属性
+    3.提取href，src,background等中的链接，将链接分开去掉文件名，只提取具有的路径,如：a/b/c.html-->[a,b]
+    4.提取class，id中的属性
+    '''
     def __init__(self,pagedir):
         self.allnames={}
         
@@ -168,8 +174,8 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
     return ret
             
 #---------------------------------------------------------------------#   panel      
-dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
+#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
 
 dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))      
