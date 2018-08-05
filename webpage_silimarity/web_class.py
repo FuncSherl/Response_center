@@ -9,6 +9,8 @@ import re,os
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
+import time,datetime
+from sqlalchemy.sql.expression import false
 
 class Website_pages:
     '''
@@ -139,10 +141,14 @@ def judge_nonull(htmldir):
         if len(basepage.allnames[i])<=1: return False
     return True
 
-
+show_groups=False
 def get_groups(dislist, gap=0.1):#将结果分组
+    #print dislist
     distsorte=np.sort(dislist)
     argss=dislist.argsort()
+    
+    
+    if show_groups: plt.scatter(distsorte,range(len(distsorte)),c='blue',s=1,marker='.')
     
     ret=[[]]
     tep=float(distsorte[0])
@@ -152,9 +158,11 @@ def get_groups(dislist, gap=0.1):#将结果分组
             tep=i
             cnt=1
             ret.append([])
+            if show_groups: plt.plot([tep,tep],[0,300],color="red")
         tep+=i
         cnt+=1
         ret[-1].append(argss[inx])
+    if show_groups: plt.show()
     return ret
 
 def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的分组
@@ -208,7 +216,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
     group_list=[]
     
     while basepage_id<len(dirlis):
-        if  not judge_nonull(dirlis[basepage_id]):#get a page that without null list
+        if not judge_nonull(dirlis[basepage_id]):#get a page that without null list
             basepage_id+=1
             continue
         
@@ -220,7 +228,8 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         
         print 'get vector len:',len(veclis)
         
-        dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))
+        #----------------------------------------这里应该用一个聚类方法
+        dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适
         #dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
         
@@ -228,6 +237,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         #args=dislist.argsort()
         
         retgroups=get_groups(dislist, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
+        #-----------------------------------------------------------------------------
         
         group_list=merge_groups(retgroups,group_list)
         
@@ -270,7 +280,13 @@ def cosdistance(lis1,lis2):#相似度最大为1，越大越相似
     x=np.array(lis1)
     y=np.array(lis2)
     
-    return np.dot(x,y)/(np.linalg.norm(x)*np.linalg.norm(y))
+    #print ("in cos dis:",x,y)
+    
+    tep=np.dot(x,y)/(np.linalg.norm(x)*np.linalg.norm(y))
+    
+    #print tep
+    
+    return tep
         
     
         
@@ -280,7 +296,14 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
     y=np.array(lis2)
     #print x.dtype
     return np.linalg.norm( x - y )
-        
+
+def kmeans(veclis):#聚类算法
+    '''
+    input:a 2-D vector and every item is a 5 length list means the 5 overlap rate
+    reuturn:a 2-D vector: groups that divided
+    '''
+    
+    pass
 
 def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
     if len(group1)<=0 or len(group2)<=0:
@@ -327,6 +350,7 @@ if __name__ == '__main__':
     '''
     before=[]
     lenlis=[]
+    stti=time.time()
     for i in range(1,50):
         tep=start( float(i)/100)
         lenlis.append(len(tep))
@@ -340,7 +364,15 @@ if __name__ == '__main__':
         before=tep
     
     fp.close()   
+    print ("time used:",(time.time()-stti))
+    
+    plt.grid(True)
     plt.plot(range(len(lenlis)), lenlis)
+    
+    today = datetime.date.today()   #datetime.date类型当前日期
+    str_today = str(today)   #字符串型当前日期,2016-10-09格式
+    plt.savefig(str_today+"save2.jpg")
+    
     plt.show()
     
     
