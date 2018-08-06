@@ -4,6 +4,7 @@ Created on 2018��7��11��
 
 @author: sherl
 '''
+
 import re,os
 
 import os.path as op
@@ -11,6 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time,datetime
 from sqlalchemy.sql.expression import false
+from numba.tests.test_nested_calls import star
 
 class Website_pages:
     '''
@@ -26,6 +28,8 @@ class Website_pages:
         self.allnames["input_names"]=[]#input name
         self.allnames["href_names"]=[]#to href
         self.allnames["id_class_names"]=[]
+        self.title=[]
+        self.charset=[]
         #self.
         
         self.feed(pagedir)
@@ -45,7 +49,8 @@ class Website_pages:
                 self.allnames["input_names"].extend((self.getinput_names(tepline)))
                 self.allnames["href_names"].extend(self.gethref_name(tepline))#add href dir
                 self.allnames["id_class_names"].extend(self.getclass_id_names(tepline))#id or class names
-                
+                self.title.extend(self.gettitle_name(tepline))
+                self.charset.extend(self.getcharset_name(tepline))
                 
                 for i in self.allnames:
                     self.allnames[i]=list(set(self.allnames[i]))
@@ -103,7 +108,17 @@ class Website_pages:
             
         return retlist
     
+    def gettitle_name(self,instr):
+        restr=r'<title>(.*)<\/'
+        it=re.finditer(restr, instr, re.I)
+        return self.get_from_iter(it)
+    
+    def getcharset_name(self,instr):
+        restr=r'charset=(.*?)[\"|>|\/]'
+        it=re.finditer(restr, instr, re.I)
+        tep= self.get_from_iter(it)
         
+        return tep#list([x.replace("gb2312","gbk") for x in tep])
         
             
     def get_from_iter(self,it,groupid=1):#从re的iter中取names
@@ -182,8 +197,8 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
     return ret
             
 #---------------------------------------------------------------------#   panel      
-dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
+#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
 
 
@@ -231,8 +246,8 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         print 'get vector len:',len(veclis)
         
         #----------------------------------------这里应该用一个聚类方法
-        #dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适,因为后面用来分组的话最好这里是一个线性的
-        dislist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
+        dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适,因为后面用来分组的话最好这里是一个线性的
+        #dislist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
         
         #sortedd=np.sort(dislist)
@@ -247,12 +262,17 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         
         cnt_len=0
         for i in group_list:
-            if len(i)>1: 
+            if len(i)>2: 
                 cnt_len+=1
-                #print i
+                print i
                 
                 for j in i:
-                    #print "-->",dirlis[j]
+                    #print feather_list[j].charset
+                    tepstr="-->"+op.split(dirlis[j])[-1]+"<-->"#这里将html中的title加到后面，title要对应html中的charset进行相应decode才能显示中文
+                    if len(feather_list[j].charset)>0 and len(feather_list[j].charset[0])>0 and len(feather_list[j].title)>0 and len(feather_list[j].title[0])>0:
+                        tepstr+=feather_list[j].title[0].decode(feather_list[j].charset[0],'ignore')
+                    
+                    print (tepstr)
                     pass
         
         basepage_id+=1
@@ -320,12 +340,14 @@ def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1�
             ins=tepi.intersection(tepj)#交际
             
             if len(ins)>0 and (len(tepi) + len(tepj))>2 and not(len(ins)==len(tepi) and len(ins)==len(tepj)):
+                '''
                 print '\ngroup2:',tepi,'\nlen:',len(tepi)," 中："
                 print "-->",ins," len:",len(ins)," in:"
                 print "---->group1",tepj," len:",len(tepj)
                 
                 print "-->",map(lambda x:op.split(dirlis[x])[-1], ins)
                 print "---->",map(lambda x:op.split(dirlis[x])[-1], tepj)
+                '''
                 
                 fp.write( '\ngroup2:'+str(tepi)+'\nlen:'+str(len(tepi))+' 中：\n')
                 fp.write( "-->"+str(ins)+" len:"+str(len(ins))+' in:\n')
@@ -351,9 +373,12 @@ if __name__ == '__main__':
     vec=tep.compare_to(tep2)
     print cosdistance(vec,vec)
     '''
+    
+    '''
     before=[]
     lenlis=[]
     stti=time.time()
+    
     for i in range(1,50):
         tep=start( float(i)/100)
         lenlis.append(len(tep))
@@ -377,6 +402,8 @@ if __name__ == '__main__':
     plt.savefig(str_today+"save2.jpg")
     
     plt.show()
+    '''
+    start(0.1)
     
     
         
