@@ -195,6 +195,8 @@ for i in dirlis:
     feather_list.append(Website_pages(i))
 
 fp=open("./log.txt","w+")
+#---------------------------------------------------------------------#
+
 
 def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
     veclis=[]
@@ -229,8 +231,8 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         print 'get vector len:',len(veclis)
         
         #----------------------------------------这里应该用一个聚类方法
-        dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适
-        #dis_eurolist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
+        #dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适,因为后面用来分组的话最好这里是一个线性的
+        dislist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
         
         #sortedd=np.sort(dislist)
@@ -291,11 +293,12 @@ def cosdistance(lis1,lis2):#相似度最大为1，越大越相似
     
         
         
-def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似
+def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似,最大是[1]*5-[0]*5
     x=np.array(lis1)
     y=np.array(lis2)
     #print x.dtype
     return np.linalg.norm( x - y )
+
 
 def kmeans(veclis):#聚类算法
     '''
@@ -367,7 +370,7 @@ if __name__ == '__main__':
     print ("time used:",(time.time()-stti))
     
     plt.grid(True)
-    plt.plot(range(len(lenlis)), lenlis)
+    plt.scatter(range(len(lenlis)), lenlis, c='blue',s=1,marker='.')
     
     today = datetime.date.today()   #datetime.date类型当前日期
     str_today = str(today)   #字符串型当前日期,2016-10-09格式
