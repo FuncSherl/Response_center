@@ -1,0 +1,868 @@
+
+
+get group len:224 len>=2 is:40
+compare to group2 with threshhold:0.01 done!
+
+
+
+
+
+get group len:224 len>=2 is:40
+compare start!
+compare to group2 with threshhold:0.02 done!
+
+
+
+
+
+get group len:219 len>=2 is:37
+compare start!
+
+group2:set([225, 226, 227, 228, 241, 242, 221])
+len:7 中：
+-->set([225, 242, 227, 228, 241]) len:5 in:
+---->group1set([225, 242, 227, 228, 241]) len:5
+-->[u'601.html', u'619.html', u'604.html', u'605.html', u'618.html']
+---->[u'601.html', u'619.html', u'604.html', u'605.html', u'618.html']
+
+group2:set([225, 226, 227, 228, 241, 242, 221])
+len:7 中：
+-->set([226, 221]) len:2 in:
+---->group1set([226, 221]) len:2
+-->[u'603.html', u'598.html']
+---->[u'603.html', u'598.html']
+
+group2:set([98, 91, 106, 211, 343])
+len:5 中：
+-->set([98, 211, 106]) len:3 in:
+---->group1set([98, 211, 106]) len:3
+-->[u'328.html', u'581.html', u'345.html']
+---->[u'328.html', u'581.html', u'345.html']
+
+group2:set([98, 91, 106, 211, 343])
+len:5 中：
+-->set([91, 343]) len:2 in:
+---->group1set([91, 343]) len:2
+-->[u'313.html', u'83.html']
+---->[u'313.html', u'83.html']
+
+group2:set([208, 179])
+len:2 中：
+-->set([208]) len:1 in:
+---->group1set([208]) len:1
+-->[u'573.html']
+---->[u'573.html']
+
+group2:set([208, 179])
+len:2 中：
+-->set([179]) len:1 in:
+---->group1set([179]) len:1
+-->[u'516.html']
+---->[u'516.html']
+
+group2:set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222])
+len:11 中：
+-->set([240, 220, 222, 239]) len:4 in:
+---->group1set([240, 220, 222, 239]) len:4
+-->[u'617.html', u'597.html', u'599.html', u'616.html']
+---->[u'617.html', u'597.html', u'599.html', u'616.html']
+
+group2:set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222])
+len:11 中：
+-->set([229, 235, 236, 237, 243, 244, 219]) len:7 in:
+---->group1set([243, 244, 229, 219, 235, 236, 237]) len:7
+-->[u'606.html', u'612.html', u'613.html', u'614.html', u'620.html', u'621.html', u'596.html']
+---->[u'620.html', u'621.html', u'606.html', u'596.html', u'612.html', u'613.html', u'614.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:29 中：
+-->set([281, 283]) len:2 in:
+---->group1set([281, 283]) len:2
+-->[u'685.html', u'687.html']
+---->[u'685.html', u'687.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:29 中：
+-->set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27
+-->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+compare to group2 with threshhold:0.03 done!
+
+
+
+
+
+get group len:216 len>=2 is:39
+compare start!
+
+group2:set([51, 38, 39])
+len:3 中：
+-->set([38, 39]) len:2 in:
+---->group1set([38, 39]) len:2
+-->[u'181.html', u'182.html']
+---->[u'181.html', u'182.html']
+
+group2:set([51, 38, 39])
+len:3 中：
+-->set([51]) len:1 in:
+---->group1set([51]) len:1
+-->[u'201.html']
+---->[u'201.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([231]) len:1 in:
+---->group1set([231]) len:1
+-->[u'608.html']
+---->[u'608.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([225, 226, 227, 228, 241, 242, 221]) len:7 in:
+---->group1set([225, 226, 227, 228, 241, 242, 221]) len:7
+-->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([25, 175, 223])
+len:3 中：
+-->set([223]) len:1 in:
+---->group1set([223]) len:1
+-->[u'6.html']
+---->[u'6.html']
+
+group2:set([25, 175, 223])
+len:3 中：
+-->set([175]) len:1 in:
+---->group1set([175]) len:1
+-->[u'508.html']
+---->[u'508.html']
+
+group2:set([25, 175, 223])
+len:3 中：
+-->set([25]) len:1 in:
+---->group1set([25]) len:1
+-->[u'161.html']
+---->[u'161.html']
+
+group2:set([240, 220, 222, 239])
+len:4 中：
+-->set([240, 220, 222, 239]) len:4 in:
+---->group1set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222]) len:11
+-->[u'617.html', u'597.html', u'599.html', u'616.html']
+---->[u'606.html', u'612.html', u'613.html', u'614.html', u'616.html', u'617.html', u'620.html', u'621.html', u'596.html', u'597.html', u'599.html']
+
+group2:set([243, 244, 229, 219, 235, 236, 237])
+len:7 中：
+-->set([229, 235, 236, 237, 243, 244, 219]) len:7 in:
+---->group1set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222]) len:11
+-->[u'606.html', u'612.html', u'613.html', u'614.html', u'620.html', u'621.html', u'596.html']
+---->[u'606.html', u'612.html', u'613.html', u'614.html', u'616.html', u'617.html', u'620.html', u'621.html', u'596.html', u'597.html', u'599.html']
+compare to group2 with threshhold:0.04 done!
+
+
+
+
+
+get group len:216 len>=2 is:39
+compare start!
+
+group2:set([51])
+len:1 中：
+-->set([51]) len:1 in:
+---->group1set([51, 38, 39]) len:3
+-->[u'201.html']
+---->[u'201.html', u'181.html', u'182.html']
+
+group2:set([38, 39])
+len:2 中：
+-->set([38, 39]) len:2 in:
+---->group1set([51, 38, 39]) len:3
+-->[u'181.html', u'182.html']
+---->[u'201.html', u'181.html', u'182.html']
+
+group2:set([231])
+len:1 中：
+-->set([231]) len:1 in:
+---->group1set([225, 226, 227, 228, 231, 241, 242, 221]) len:8
+-->[u'608.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([225, 226, 227, 228, 241, 242, 221])
+len:7 中：
+-->set([225, 226, 227, 228, 241, 242, 221]) len:7 in:
+---->group1set([225, 226, 227, 228, 231, 241, 242, 221]) len:8
+-->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222])
+len:11 中：
+-->set([240, 220, 222, 239]) len:4 in:
+---->group1set([240, 220, 222, 239]) len:4
+-->[u'617.html', u'597.html', u'599.html', u'616.html']
+---->[u'617.html', u'597.html', u'599.html', u'616.html']
+
+group2:set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222])
+len:11 中：
+-->set([229, 235, 236, 237, 243, 244, 219]) len:7 in:
+---->group1set([243, 244, 229, 219, 235, 236, 237]) len:7
+-->[u'606.html', u'612.html', u'613.html', u'614.html', u'620.html', u'621.html', u'596.html']
+---->[u'620.html', u'621.html', u'606.html', u'596.html', u'612.html', u'613.html', u'614.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([247]) len:1 in:
+---->group1set([247]) len:1
+-->[u'632.html']
+---->[u'632.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([118]) len:1 in:
+---->group1set([118]) len:1
+-->[u'369.html']
+---->[u'369.html']
+compare to group2 with threshhold:0.05 done!
+
+
+
+
+
+get group len:215 len>=2 is:37
+compare start!
+
+group2:set([51, 38, 39])
+len:3 中：
+-->set([51]) len:1 in:
+---->group1set([51]) len:1
+-->[u'201.html']
+---->[u'201.html']
+
+group2:set([51, 38, 39])
+len:3 中：
+-->set([38, 39]) len:2 in:
+---->group1set([38, 39]) len:2
+-->[u'181.html', u'182.html']
+---->[u'181.html', u'182.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([231]) len:1 in:
+---->group1set([231]) len:1
+-->[u'608.html']
+---->[u'608.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([225, 226, 227, 228, 241, 242, 221]) len:7 in:
+---->group1set([225, 226, 227, 228, 241, 242, 221]) len:7
+-->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([247])
+len:1 中：
+-->set([247]) len:1 in:
+---->group1set([118, 247]) len:2
+-->[u'632.html']
+---->[u'369.html', u'632.html']
+
+group2:set([118])
+len:1 中：
+-->set([118]) len:1 in:
+---->group1set([118, 247]) len:2
+-->[u'369.html']
+---->[u'369.html', u'632.html']
+
+group2:set([201, 68, 166, 167])
+len:4 中：
+-->set([201]) len:1 in:
+---->group1set([201]) len:1
+-->[u'554.html']
+---->[u'554.html']
+
+group2:set([201, 68, 166, 167])
+len:4 中：
+-->set([68]) len:1 in:
+---->group1set([68]) len:1
+-->[u'246.html']
+---->[u'246.html']
+
+group2:set([201, 68, 166, 167])
+len:4 中：
+-->set([166, 167]) len:2 in:
+---->group1set([166, 167]) len:2
+-->[u'486.html', u'487.html']
+---->[u'486.html', u'487.html']
+
+group2:set([223])
+len:1 中：
+-->set([223]) len:1 in:
+---->group1set([25, 175, 223]) len:3
+-->[u'6.html']
+---->[u'161.html', u'508.html', u'6.html']
+
+group2:set([175])
+len:1 中：
+-->set([175]) len:1 in:
+---->group1set([25, 175, 223]) len:3
+-->[u'508.html']
+---->[u'161.html', u'508.html', u'6.html']
+
+group2:set([25])
+len:1 中：
+-->set([25]) len:1 in:
+---->group1set([25, 175, 223]) len:3
+-->[u'161.html']
+---->[u'161.html', u'508.html', u'6.html']
+compare to group2 with threshhold:0.06 done!
+
+
+
+
+
+get group len:210 len>=2 is:38
+compare start!
+
+group2:set([48, 98, 211, 343, 106, 91])
+len:6 中：
+-->set([106, 91, 98, 211, 343]) len:5 in:
+---->group1set([106, 91, 98, 211, 343]) len:5
+-->[u'345.html', u'313.html', u'328.html', u'581.html', u'83.html']
+---->[u'345.html', u'313.html', u'328.html', u'581.html', u'83.html']
+
+group2:set([48, 98, 211, 343, 106, 91])
+len:6 中：
+-->set([48]) len:1 in:
+---->group1set([48]) len:1
+-->[u'195.html']
+---->[u'195.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([247]) len:1 in:
+---->group1set([247]) len:1
+-->[u'632.html']
+---->[u'632.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([118]) len:1 in:
+---->group1set([118]) len:1
+-->[u'369.html']
+---->[u'369.html']
+
+group2:set([68, 25, 166, 167, 201, 223, 175])
+len:7 中：
+-->set([201, 68, 166, 167]) len:4 in:
+---->group1set([201, 68, 166, 167]) len:4
+-->[u'554.html', u'246.html', u'486.html', u'487.html']
+---->[u'554.html', u'246.html', u'486.html', u'487.html']
+
+group2:set([68, 25, 166, 167, 201, 223, 175])
+len:7 中：
+-->set([223]) len:1 in:
+---->group1set([223]) len:1
+-->[u'6.html']
+---->[u'6.html']
+
+group2:set([68, 25, 166, 167, 201, 223, 175])
+len:7 中：
+-->set([175]) len:1 in:
+---->group1set([175]) len:1
+-->[u'508.html']
+---->[u'508.html']
+
+group2:set([68, 25, 166, 167, 201, 223, 175])
+len:7 中：
+-->set([25]) len:1 in:
+---->group1set([25]) len:1
+-->[u'161.html']
+---->[u'161.html']
+compare to group2 with threshhold:0.07 done!
+
+
+
+
+
+get group len:213 len>=2 is:39
+compare start!
+
+group2:set([225, 242, 227, 228, 231, 241])
+len:6 中：
+-->set([225, 227, 228, 231, 241, 242]) len:6 in:
+---->group1set([225, 226, 227, 228, 231, 241, 242, 221]) len:8
+-->[u'601.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([226, 221])
+len:2 中：
+-->set([226, 221]) len:2 in:
+---->group1set([225, 226, 227, 228, 231, 241, 242, 221]) len:8
+-->[u'603.html', u'598.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([247])
+len:1 中：
+-->set([247]) len:1 in:
+---->group1set([118, 247]) len:2
+-->[u'632.html']
+---->[u'369.html', u'632.html']
+
+group2:set([118])
+len:1 中：
+-->set([118]) len:1 in:
+---->group1set([118, 247]) len:2
+-->[u'369.html']
+---->[u'369.html', u'632.html']
+
+group2:set([281, 283])
+len:2 中：
+-->set([281, 283]) len:2 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:29
+-->[u'685.html', u'687.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'685.html', u'686.html', u'687.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:27 中：
+-->set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:29
+-->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'685.html', u'686.html', u'687.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+compare to group2 with threshhold:0.08 done!
+
+
+
+
+
+get group len:212 len>=2 is:39
+compare start!
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([225, 227, 228, 231, 241, 242]) len:6 in:
+---->group1set([225, 242, 227, 228, 231, 241]) len:6
+-->[u'601.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html']
+---->[u'601.html', u'619.html', u'604.html', u'605.html', u'608.html', u'618.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([226, 221]) len:2 in:
+---->group1set([226, 221]) len:2
+-->[u'603.html', u'598.html']
+---->[u'603.html', u'598.html']
+
+group2:set([201])
+len:1 中：
+-->set([201]) len:1 in:
+---->group1set([68, 25, 166, 167, 201, 223, 175]) len:7
+-->[u'554.html']
+---->[u'246.html', u'161.html', u'486.html', u'487.html', u'554.html', u'6.html', u'508.html']
+
+group2:set([105, 35, 142])
+len:3 中：
+-->set([35, 142]) len:2 in:
+---->group1set([35, 142]) len:2
+-->[u'179.html', u'438.html']
+---->[u'179.html', u'438.html']
+
+group2:set([105, 35, 142])
+len:3 中：
+-->set([105]) len:1 in:
+---->group1set([105]) len:1
+-->[u'343.html']
+---->[u'343.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([247]) len:1 in:
+---->group1set([247]) len:1
+-->[u'632.html']
+---->[u'632.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([118]) len:1 in:
+---->group1set([118]) len:1
+-->[u'369.html']
+---->[u'369.html']
+
+group2:set([68])
+len:1 中：
+-->set([68]) len:1 in:
+---->group1set([68, 25, 166, 167, 201, 223, 175]) len:7
+-->[u'246.html']
+---->[u'246.html', u'161.html', u'486.html', u'487.html', u'554.html', u'6.html', u'508.html']
+
+group2:set([166, 167])
+len:2 中：
+-->set([166, 167]) len:2 in:
+---->group1set([68, 25, 166, 167, 201, 223, 175]) len:7
+-->[u'486.html', u'487.html']
+---->[u'246.html', u'161.html', u'486.html', u'487.html', u'554.html', u'6.html', u'508.html']
+
+group2:set([25, 223, 175])
+len:3 中：
+-->set([25, 175, 223]) len:3 in:
+---->group1set([68, 25, 166, 167, 201, 223, 175]) len:7
+-->[u'161.html', u'508.html', u'6.html']
+---->[u'246.html', u'161.html', u'486.html', u'487.html', u'554.html', u'6.html', u'508.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:29 中：
+-->set([281, 283]) len:2 in:
+---->group1set([281, 283]) len:2
+-->[u'685.html', u'687.html']
+---->[u'685.html', u'687.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:29 中：
+-->set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27
+-->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+compare to group2 with threshhold:0.09 done!
+
+
+
+
+
+get group len:214 len>=2 is:40
+compare start!
+
+group2:set([281, 283])
+len:2 中：
+-->set([281, 283]) len:2 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:29
+-->[u'685.html', u'687.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'685.html', u'686.html', u'687.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:27 中：
+-->set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:29
+-->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'685.html', u'686.html', u'687.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+
+group2:set([175, 223])
+len:2 中：
+-->set([223, 175]) len:2 in:
+---->group1set([25, 223, 175]) len:3
+-->[u'6.html', u'508.html']
+---->[u'161.html', u'6.html', u'508.html']
+
+group2:set([25])
+len:1 中：
+-->set([25]) len:1 in:
+---->group1set([25, 223, 175]) len:3
+-->[u'161.html']
+---->[u'161.html', u'6.html', u'508.html']
+compare to group2 with threshhold:0.1 done!
+
+
+
+
+
+get group len:213 len>=2 is:40
+compare start!
+
+group2:set([48])
+len:1 中：
+-->set([48]) len:1 in:
+---->group1set([48, 98, 211, 343, 106, 91]) len:6
+-->[u'195.html']
+---->[u'195.html', u'328.html', u'581.html', u'83.html', u'345.html', u'313.html']
+
+group2:set([106, 91, 98, 211, 343])
+len:5 中：
+-->set([106, 91, 98, 211, 343]) len:5 in:
+---->group1set([48, 98, 211, 343, 106, 91]) len:6
+-->[u'345.html', u'313.html', u'328.html', u'581.html', u'83.html']
+---->[u'195.html', u'328.html', u'581.html', u'83.html', u'345.html', u'313.html']
+
+group2:set([201, 212, 101])
+len:3 中：
+-->set([201]) len:1 in:
+---->group1set([201]) len:1
+-->[u'554.html']
+---->[u'554.html']
+
+group2:set([201, 212, 101])
+len:3 中：
+-->set([212, 101]) len:2 in:
+---->group1set([212, 101]) len:2
+-->[u'583.html', u'332.html']
+---->[u'583.html', u'332.html']
+
+group2:set([25, 223, 175])
+len:3 中：
+-->set([223, 175]) len:2 in:
+---->group1set([175, 223]) len:2
+-->[u'6.html', u'508.html']
+---->[u'508.html', u'6.html']
+
+group2:set([25, 223, 175])
+len:3 中：
+-->set([25]) len:1 in:
+---->group1set([25]) len:1
+-->[u'161.html']
+---->[u'161.html']
+compare to group2 with threshhold:0.11 done!
+
+
+
+
+
+get group len:214 len>=2 is:37
+compare start!
+
+group2:set([231])
+len:1 中：
+-->set([231]) len:1 in:
+---->group1set([225, 226, 227, 228, 231, 241, 242, 221]) len:8
+-->[u'608.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([225, 226, 227, 228, 241, 242, 221])
+len:7 中：
+-->set([225, 226, 227, 228, 241, 242, 221]) len:7 in:
+---->group1set([225, 226, 227, 228, 231, 241, 242, 221]) len:8
+-->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'608.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([201])
+len:1 中：
+-->set([201]) len:1 in:
+---->group1set([201, 212, 101]) len:3
+-->[u'554.html']
+---->[u'554.html', u'583.html', u'332.html']
+
+group2:set([212, 101, 166, 167])
+len:4 中：
+-->set([212, 101]) len:2 in:
+---->group1set([201, 212, 101]) len:3
+-->[u'583.html', u'332.html']
+---->[u'554.html', u'583.html', u'332.html']
+
+group2:set([212, 101, 166, 167])
+len:4 中：
+-->set([166, 167]) len:2 in:
+---->group1set([166, 167]) len:2
+-->[u'486.html', u'487.html']
+---->[u'486.html', u'487.html']
+
+group2:set([247])
+len:1 中：
+-->set([247]) len:1 in:
+---->group1set([118, 247]) len:2
+-->[u'632.html']
+---->[u'369.html', u'632.html']
+
+group2:set([118])
+len:1 中：
+-->set([118]) len:1 in:
+---->group1set([118, 247]) len:2
+-->[u'369.html']
+---->[u'369.html', u'632.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:29 中：
+-->set([281, 283]) len:2 in:
+---->group1set([281, 283]) len:2
+-->[u'685.html', u'687.html']
+---->[u'685.html', u'687.html']
+
+group2:set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303])
+len:29 中：
+-->set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27 in:
+---->group1set([267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 282, 284, 285, 288, 289, 290, 293, 294, 296, 298, 300, 301, 303]) len:27
+-->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+---->[u'665.html', u'667.html', u'668.html', u'669.html', u'670.html', u'673.html', u'674.html', u'675.html', u'676.html', u'678.html', u'679.html', u'682.html', u'683.html', u'684.html', u'686.html', u'688.html', u'689.html', u'694.html', u'696.html', u'697.html', u'704.html', u'705.html', u'708.html', u'710.html', u'712.html', u'713.html', u'717.html']
+compare to group2 with threshhold:0.12 done!
+
+
+
+
+
+get group len:215 len>=2 is:38
+compare start!
+
+group2:set([38, 39])
+len:2 中：
+-->set([38, 39]) len:2 in:
+---->group1set([51, 38, 39]) len:3
+-->[u'181.html', u'182.html']
+---->[u'201.html', u'181.html', u'182.html']
+
+group2:set([51])
+len:1 中：
+-->set([51]) len:1 in:
+---->group1set([51, 38, 39]) len:3
+-->[u'201.html']
+---->[u'201.html', u'181.html', u'182.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([231]) len:1 in:
+---->group1set([231]) len:1
+-->[u'608.html']
+---->[u'608.html']
+
+group2:set([225, 226, 227, 228, 231, 241, 242, 221])
+len:8 中：
+-->set([225, 226, 227, 228, 241, 242, 221]) len:7 in:
+---->group1set([225, 226, 227, 228, 241, 242, 221]) len:7
+-->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+---->[u'601.html', u'603.html', u'604.html', u'605.html', u'618.html', u'619.html', u'598.html']
+
+group2:set([68, 212, 101])
+len:3 中：
+-->set([68]) len:1 in:
+---->group1set([68]) len:1
+-->[u'246.html']
+---->[u'246.html']
+
+group2:set([68, 212, 101])
+len:3 中：
+-->set([212, 101]) len:2 in:
+---->group1set([212, 101, 166, 167]) len:4
+-->[u'583.html', u'332.html']
+---->[u'583.html', u'332.html', u'486.html', u'487.html']
+
+group2:set([166, 167])
+len:2 中：
+-->set([166, 167]) len:2 in:
+---->group1set([212, 101, 166, 167]) len:4
+-->[u'486.html', u'487.html']
+---->[u'583.html', u'332.html', u'486.html', u'487.html']
+
+group2:set([223])
+len:1 中：
+-->set([223]) len:1 in:
+---->group1set([25, 223, 175]) len:3
+-->[u'6.html']
+---->[u'161.html', u'6.html', u'508.html']
+
+group2:set([25, 175])
+len:2 中：
+-->set([25, 175]) len:2 in:
+---->group1set([25, 223, 175]) len:3
+-->[u'161.html', u'508.html']
+---->[u'161.html', u'6.html', u'508.html']
+compare to group2 with threshhold:0.13 done!
+
+
+
+
+
+get group len:216 len>=2 is:38
+compare start!
+
+group2:set([68])
+len:1 中：
+-->set([68]) len:1 in:
+---->group1set([68, 212, 101]) len:3
+-->[u'246.html']
+---->[u'246.html', u'583.html', u'332.html']
+
+group2:set([223, 175])
+len:2 中：
+-->set([223]) len:1 in:
+---->group1set([223]) len:1
+-->[u'6.html']
+---->[u'6.html']
+
+group2:set([223, 175])
+len:2 中：
+-->set([175]) len:1 in:
+---->group1set([25, 175]) len:2
+-->[u'508.html']
+---->[u'161.html', u'508.html']
+
+group2:set([212, 101])
+len:2 中：
+-->set([212, 101]) len:2 in:
+---->group1set([68, 212, 101]) len:3
+-->[u'583.html', u'332.html']
+---->[u'246.html', u'583.html', u'332.html']
+
+group2:set([25])
+len:1 中：
+-->set([25]) len:1 in:
+---->group1set([25, 175]) len:2
+-->[u'161.html']
+---->[u'161.html', u'508.html']
+compare to group2 with threshhold:0.14 done!
+
+
+
+
+
+get group len:213 len>=2 is:39
+compare start!
+
+group2:set([51, 38, 39])
+len:3 中：
+-->set([38, 39]) len:2 in:
+---->group1set([38, 39]) len:2
+-->[u'181.html', u'182.html']
+---->[u'181.html', u'182.html']
+
+group2:set([51, 38, 39])
+len:3 中：
+-->set([51]) len:1 in:
+---->group1set([51]) len:1
+-->[u'201.html']
+---->[u'201.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([247]) len:1 in:
+---->group1set([247]) len:1
+-->[u'632.html']
+---->[u'632.html']
+
+group2:set([118, 247])
+len:2 中：
+-->set([118]) len:1 in:
+---->group1set([118]) len:1
+-->[u'369.html']
+---->[u'369.html']
+
+group2:set([240, 220, 222, 239])
+len:4 中：
+-->set([240, 220, 222, 239]) len:4 in:
+---->group1set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222]) len:11
+-->[u'617.html', u'597.html', u'599.html', u'616.html']
+---->[u'606.html', u'612.html', u'613.html', u'614.html', u'616.html', u'617.html', u'620.html', u'621.html', u'596.html', u'597.html', u'599.html']
+
+group2:set([243, 244, 229, 219, 235, 236, 237])
+len:7 中：
+-->set([229, 235, 236, 237, 243, 244, 219]) len:7 in:
+---->group1set([229, 235, 236, 237, 239, 240, 243, 244, 219, 220, 222]) len:11
+-->[u'606.html', u'612.html', u'613.html', u'614.html', u'620.html', u'621.html', u'596.html']
+---->[u'606.html', u'612.html', u'613.html', u'614.html', u'616.html', u'617.html', u'620.html', u'621.html', u'596.html', u'597.html', u'599.html']
+
+group2:set([212, 101, 166, 167])
+len:4 中：
+-->set([212, 101]) len:2 in:
+---->group1set([212, 101]) len:2
+-->[u'583.html', u'332.html']
+---->[u'583.html', u'332.html']
+
+group2:set([212, 101, 166, 167])
+len:4 中：
+-->set([166, 167]) len:2 in:
+---->group1set([166, 167]) len:2
+-->[u'486.html', u'487.html']
+---->[u'486.html', u'487.html']
+
+group2:set([25, 175, 223])
+len:3 中：
+-->set([175, 223]) len:2 in:
+---->group1set([223, 175]) len:2
+-->[u'508.html', u'6.html']
+---->[u'6.html', u'508.html']
+
+group2:set([25, 175, 223])
+len:3 中：
+-->s

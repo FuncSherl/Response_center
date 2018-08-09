@@ -156,6 +156,7 @@ def judge_nonull(htmldir):
         if len(basepage.allnames[i])<=1: return False
     return True
 
+
 show_groups=False
 def get_groups(dislist, gap=0.1):#将结果分组
     #print dislist
@@ -212,7 +213,6 @@ for i in dirlis:
 fp=open("./log.txt","w+")
 #---------------------------------------------------------------------#
 
-
 def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
     veclis=[]
     basepage=feather_list[basepage_id]   #Website_pages(dirlis[basepage_id])
@@ -223,7 +223,18 @@ def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
         veclis.append(basepage.compare_to(tep))
     return veclis
          
-         
+def show_groups_angle(groups, dislist):
+    '''
+            分别计算每个点与全一向量的的夹角然后画出来
+    '''
+    cValue = ['r','y','g','b','c','k','m']
+    for ind,i in enumerate(groups):
+        tep=list([dislist[j] for j in i])
+        
+        plt.scatter(range(len(tep)), tep, c=cValue[ind%len(cValue)],s=1,marker='.')
+        
+        
+    plt.show()
 
 
     
@@ -246,7 +257,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         print 'get vector len:',len(veclis)
         
         #----------------------------------------这里应该用一个聚类方法
-        '''
+        
         dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适,因为后面用来分组的话最好这里是一个线性的
         #dislist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
@@ -255,9 +266,9 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         #args=dislist.argsort()
         
         retgroups=get_groups(dislist, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
-        '''
+        
         #-------------------------------------------------------------------------KMEANS
-        retgroups,k_vec=kmeans.classify(veclis)
+        #retgroups,k_vec=kmeans.classify(veclis)
         
         
         
@@ -268,6 +279,8 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         
         
         print 'groups:',len(group_list),"  with threshold:",threshhold
+        
+        #show_groups_angle(retgroups,dislist)
         
         cnt_len=0
         for i in group_list:

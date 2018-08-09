@@ -93,6 +93,7 @@ def classify(dat, k=5,threshhold=0.001):
         
     return groups,k_vec
     
+
     
     
     
