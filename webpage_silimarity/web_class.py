@@ -6,7 +6,7 @@ Created on 2018��7��11��
 '''
 
 import re,os
-
+import kmeans
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
@@ -197,8 +197,8 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
     return ret
             
 #---------------------------------------------------------------------#   panel      
-#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
+dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
 
 
@@ -246,6 +246,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         print 'get vector len:',len(veclis)
         
         #----------------------------------------这里应该用一个聚类方法
+        '''
         dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适,因为后面用来分组的话最好这里是一个线性的
         #dislist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
@@ -254,7 +255,14 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         #args=dislist.argsort()
         
         retgroups=get_groups(dislist, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
-        #-----------------------------------------------------------------------------
+        '''
+        #-------------------------------------------------------------------------KMEANS
+        retgroups,k_vec=kmeans.classify(veclis)
+        
+        
+        
+        
+        #-------------------------------------------------------------------------------
         
         group_list=merge_groups(retgroups,group_list)
         
@@ -320,13 +328,6 @@ def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似,最大是[1]*5-[
     return np.linalg.norm( x - y )
 
 
-def kmeans(veclis):#聚类算法
-    '''
-    input:a 2-D vector and every item is a 5 length list means the 5 overlap rate
-    reuturn:a 2-D vector: groups that divided
-    '''
-    
-    pass
 
 def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1的区别
     if len(group1)<=0 or len(group2)<=0:
@@ -374,7 +375,7 @@ if __name__ == '__main__':
     print cosdistance(vec,vec)
     '''
     
-    '''
+    
     before=[]
     lenlis=[]
     stti=time.time()
@@ -404,7 +405,7 @@ if __name__ == '__main__':
     plt.show()
     '''
     start(0.1)
-    
+    '''
     
         
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])

@@ -1,0 +1,391 @@
+
+
+get group len:350 len>=2 is:0
+compare to group2 with threshhold:0.01 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.02 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.03 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.04 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.05 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.06 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.07 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.08 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.09 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.1 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.11 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.12 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.13 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.14 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.15 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.16 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.17 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.18 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.19 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.2 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.21 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.22 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.23 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.24 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.25 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.26 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.27 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.28 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.29 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.3 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.31 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.32 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.33 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.34 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.35 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.36 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.37 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.38 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.39 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.4 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.41 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.42 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.43 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.44 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.45 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.46 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.47 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.48 done!
+
+
+
+
+
+get group len:350 len>=2 is:0
+compare start!
+compare to group2 with threshhold:0.49 done!
+
+
+

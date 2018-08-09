@@ -54,6 +54,12 @@ def forward_once(dat, cores):
         
 
 def classify(dat, k=5,threshhold=0.001):
+    '''
+    input:a 2-D vector and every item is the same length list 
+        k:group nums
+        threshhold:when to stop
+    reuturn:a 2-D vector: groups that divided
+    '''
     if len(dat)<=0 or len(dat[0])<=0: return []
     
     tep_dat=np.array(dat)
