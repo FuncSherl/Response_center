@@ -266,6 +266,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         
         group_list=merge_groups(retgroups,group_list)
         
+        
         print 'groups:',len(group_list),"  with threshold:",threshhold
         
         cnt_len=0

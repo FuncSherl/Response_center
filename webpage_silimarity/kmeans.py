@@ -67,6 +67,7 @@ def classify(dat, k=5,threshhold=0.001):
     min_item=tep_dat.min()
     max_item=tep_dat.max()#最大值与最小值
     
+    print ("kmeans:min->max",min_item,"->",max_item)
     item_l=len(dat[0])#元素长度
     
     k_vec=(max_item-min_item)*np.random.random([k,item_l])+min_item#随机的k个向量中心点
@@ -85,7 +86,8 @@ def classify(dat, k=5,threshhold=0.001):
         cnt+=1
         
         print ("process ",cnt)
-        print ('groups:',groups)
+        for i in groups:
+            print ("len:",len(i),'groups:',i)
         print ("cores:",k_vec)
         print ("distance sum:",new_dis)
         
