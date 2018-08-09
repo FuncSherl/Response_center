@@ -223,13 +223,13 @@ def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
         veclis.append(basepage.compare_to(tep))
     return veclis
          
-def show_groups_angle(groups, dislist):
+def show_groups_angle(groups):
     '''
             分别计算每个点与全一向量的的夹角然后画出来
     '''
     cValue = ['r','y','g','b','c','k','m']
     for ind,i in enumerate(groups):
-        tep=list([dislist[j] for j in i])
+        tep=i
         
         plt.scatter(range(len(tep)), tep, c=cValue[ind%len(cValue)],s=1,marker='.')
         
@@ -280,7 +280,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         
         print 'groups:',len(group_list),"  with threshold:",threshhold
         
-        #show_groups_angle(retgroups,dislist)
+        #show_groups_angle([[dislist[i] for i in j] for j in group_list] )
         
         cnt_len=0
         for i in group_list:
