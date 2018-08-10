@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import time,datetime
 from sqlalchemy.sql.expression import false
 from numba.tests.test_nested_calls import star
+from nltk.corpus import reuters
 
 class Website_pages:
     '''
@@ -159,26 +160,26 @@ def judge_nonull(htmldir):
 
 show_groups=False
 def get_groups(dislist, gap=0.1):#将结果分组
-    #print dislist
     distsorte=np.sort(dislist)
     argss=dislist.argsort()
     
-    
+    #print distsorte
     if show_groups: plt.scatter(distsorte,range(len(distsorte)),c='blue',s=1,marker='.')
     
     ret=[[]]
-    tep=float(distsorte[0])
-    cnt=1
+    #tep=float(distsorte[0])
+    stcnt=0
     for inx,i in enumerate(distsorte):
-        if abs(tep/cnt-i)>=gap:
-            tep=i
-            cnt=1
+        #print ("dis:",abs(distsorte[stcnt:inx].var()-distsorte[stcnt:inx+1].var())," gap:",gap)
+        if inx>0 and abs(distsorte[stcnt:inx].var()-distsorte[stcnt:inx+1].var())>=gap:#以加上之后的方差差距判断是否为一组
+            stcnt=inx
             ret.append([])
-            if show_groups: plt.plot([tep,tep],[0,300],color="red")
-        tep+=i
-        cnt+=1
+            if show_groups: plt.plot([i,i],[0,300],color="red")
+        #stcnt+=1
         ret[-1].append(argss[inx])
-    if show_groups: plt.show()
+    if show_groups: 
+        plt.plot([distsorte[-1],distsorte[-1]],[0,300],color="red")  
+        plt.show()
     return ret
 
 def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的分组
@@ -198,8 +199,8 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
     return ret
             
 #---------------------------------------------------------------------#   panel      
-dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
+#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
 
 
@@ -268,9 +269,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         retgroups=get_groups(dislist, threshhold)#这里可以设置阈值，即距离达到多少判定为一组
         
         #-------------------------------------------------------------------------KMEANS
-        #retgroups,k_vec=kmeans.classify(veclis)
-        
-        
+        #retgroups,k_vec=kmeans.classify(veclis)# 试了kmeans效果并不好
         
         
         #-------------------------------------------------------------------------------
@@ -323,10 +322,12 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
 def cosdistance(lis1,lis2):#相似度最大为1，越大越相似
     x=np.array(lis1)
     y=np.array(lis2)
-    
+    tep=np.linalg.norm(x)*np.linalg.norm(y)
     #print ("in cos dis:",x,y)
+    if not tep:#这里返回只是为了不至于分母为0出现nan，这里1.1正常情况下是不可能作为距离的
+        return 1.1
     
-    tep=np.dot(x,y)/(np.linalg.norm(x)*np.linalg.norm(y))
+    tep=np.dot(x,y)/(tep)
     
     #print tep
     
@@ -394,8 +395,8 @@ if __name__ == '__main__':
     lenlis=[]
     stti=time.time()
     
-    for i in range(1,50):
-        tep=start( float(i)/100)
+    for i in range(1,1000):
+        tep=start( float(i)/100000)
         lenlis.append(len(tep))
         
         lenlist=np.array(map(lambda x:len(x), tep))
@@ -414,7 +415,7 @@ if __name__ == '__main__':
     
     today = datetime.date.today()   #datetime.date类型当前日期
     str_today = str(today)   #字符串型当前日期,2016-10-09格式
-    plt.savefig(str_today+"save2.jpg")
+    plt.savefig(str_today+"save.jpg")
     
     plt.show()
     '''
