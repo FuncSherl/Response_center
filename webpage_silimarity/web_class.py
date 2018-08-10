@@ -159,7 +159,7 @@ def judge_nonull(htmldir):
 
 
 show_groups=False
-def get_groups(dislist, gap=0.1):#将结果分组
+def get_groups(dislist, gap=0.1,min_item=0.5, max_item=1):#将结果分组
     distsorte=np.sort(dislist)
     argss=dislist.argsort()
     
@@ -170,6 +170,9 @@ def get_groups(dislist, gap=0.1):#将结果分组
     #tep=float(distsorte[0])
     stcnt=0
     for inx,i in enumerate(distsorte):
+        #if i<=min_item: continue#太小的话没有区分度
+        if i>=max_item: break#大于一代表上面cos距离分母为零
+        
         #print ("dis:",abs(distsorte[stcnt:inx].var()-distsorte[stcnt:inx+1].var())," gap:",gap)
         if inx>0 and abs(distsorte[stcnt:inx].var()-distsorte[stcnt:inx+1].var())>=gap:#以加上之后的方差差距判断是否为一组
             stcnt=inx
@@ -184,23 +187,25 @@ def get_groups(dislist, gap=0.1):#将结果分组
 
 def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的分组
     ret=[]
-    for i in group1:
+    for i in group2:
+        #以group2为主，最后会把group2没分配的新建一个组，因此，group2里面一定是包含所有项目的，而group1里面可以少一些
         iset=set(i)
         
-        for j in group2:#将1中的每一行与2中每一行获取交集作为一个新的分组
+        for j in group1:#将1中的每一行与2中每一行获取交集作为一个新的分组
             tepset=set(j)
             t=iset.intersection(tepset)
             if len(t)>0: ret.append(t)
             iset.difference_update(tepset)
         
         if len(iset)>0:
+            print "group2 left len:",len(iset),"->",iset
             ret.append(iset)
             
     return ret
             
 #---------------------------------------------------------------------#   panel      
-#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
-dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
+dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+#dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
 
 
 
@@ -210,8 +215,11 @@ dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))
 feather_list=[]
 for i in dirlis:
     feather_list.append(Website_pages(i))
+    
+today = datetime.date.today()   #datetime.date类型当前日期
+str_today = str(today)   #字符串型当前日期,2016-10-09格式
 
-fp=open("./log.txt","w+")
+fp=open("./log_"+str_today+".txt","w+")
 #---------------------------------------------------------------------#
 
 def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
@@ -242,7 +250,7 @@ def show_groups_angle(groups):
 def start( threshhold):    #这里可以设置阈值，即距离达到多少判定为一组
     basepage_id=0
     
-    group_list=[]
+    group_list=[range(len(dirlis))]
     
     while basepage_id<len(dirlis):
         if not judge_nonull(dirlis[basepage_id]):#get a page that without null list
@@ -395,7 +403,7 @@ if __name__ == '__main__':
     lenlis=[]
     stti=time.time()
     
-    for i in range(1,1000):
+    for i in range(1,200):
         tep=start( float(i)/100000)
         lenlis.append(len(tep))
         
@@ -413,9 +421,8 @@ if __name__ == '__main__':
     plt.grid(True)
     plt.scatter(range(len(lenlis)), lenlis, c='blue',s=1,marker='.')
     
-    today = datetime.date.today()   #datetime.date类型当前日期
-    str_today = str(today)   #字符串型当前日期,2016-10-09格式
-    plt.savefig(str_today+"save.jpg")
+    
+    plt.savefig(str_today+"save3.jpg")
     
     plt.show()
     '''
