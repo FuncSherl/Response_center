@@ -6,6 +6,7 @@ Created on Aug 31, 2018
 '''
 
 import requests,sys,os
+import os.path as op
 #import uniout 
 from bs4 import BeautifulSoup
 import chardet,xlrd
@@ -18,7 +19,7 @@ def getpagewithdecode(url):
     #r = requests.get("http://httpbin.org/get", params=payload, headers=headers,data='this is data')
     try:
         #这一 timeout 值将会用作 connect 和 read 二者的 timeout。如果要分别制定，就传入一个元组
-        r = requests.get(url,headers=headers,timeout=(3,30))
+        r = requests.get(url,headers=headers,timeout=(10,30))
 
     except Exception as e:
         return repr(e),False
@@ -70,23 +71,26 @@ if __name__ == '__main__':
     
     excel_list=getiplist(excel_path)
     url=[x[0] for x in excel_list]
-    print (url)
     
-    log=open("./pages/results.txt","a+", encoding='utf-8')
+    log=open(  op.join(resultdir,"results.txt")  ,"a+", encoding='utf-8')
     #url=['192.168.1.1','www.baidu.com']
+    err_cnt=0
     for ind,i in enumerate(url):
         htt='http://'+i
         
-        print (htt)
+        print (htt+"   "+str(ind)+"/"+str(len(url)))
         
         tep,stat=getpagewithdecode(htt)
         #print tep
         #print (parse_page(tep))
         #print (excel_list[ind])
         if stat:
-            with open("./pages/"+str(ind)+".txt", 'w+', encoding='utf-8') as f: f.write(tep)
+            with open(  op.join(resultdir,str(ind)+ '_'+i +".txt"), 'w+', encoding='utf-8') as f: f.write(tep)
         else:
+            err_cnt+=1
             log.write(str(ind)+"  "+htt+"  "+tep+'\n')
+            print (tep)
+        print ("states:"+str(stat)+"   error count:"+str(err_cnt)+'\n')
         
     log.close()
     
