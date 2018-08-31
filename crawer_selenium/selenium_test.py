@@ -15,11 +15,12 @@ chrome_options.add_argument('no-sandbox')
 
 #display = Display(visible=0, size=(800, 800))  
 #display.start()
-
-browser = webdriver.Chrome(chrome_options=chrome_options)#
+browser = webdriver.PhantomJS()
+#browser = webdriver.Chrome(chrome_options=chrome_options)#
 
 browser.get("http://www.baidu.com")
 print(browser.page_source)
+print browser.title
 browser.close()
 
 if __name__ == '__main__':
