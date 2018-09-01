@@ -11,9 +11,6 @@ import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
 import time,datetime
-from sqlalchemy.sql.expression import false
-from numba.tests.test_nested_calls import star
-from nltk.corpus import reuters
 
 class Website_pages:
     '''
