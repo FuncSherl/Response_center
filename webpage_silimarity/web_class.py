@@ -11,6 +11,8 @@ import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
 import time,datetime
+from bs4 import BeautifulSoup
+import chardet,xlrd
 
 class Website_pages:
     '''
@@ -26,8 +28,7 @@ class Website_pages:
         self.allnames["input_names"]=[]#input name
         self.allnames["href_names"]=[]#to href
         self.allnames["id_class_names"]=[]
-        self.title=[]
-        self.charset=[]
+        self.title=str(None)
         #self.
         
         self.feed(pagedir)
@@ -35,11 +36,15 @@ class Website_pages:
     
     def printout(self):
         for i in self.allnames:
-            print i,":",self.allnames[i]
+            print (i,":",self.allnames[i])
             
             
     def feed(self,pagedir):
-        with open(pagedir,"r") as f:
+        with open(pagedir,"r") as f: 
+            sop=BeautifulSoup(f,"html5lib")
+            if sop.title: self.title=str(sop.title.string).strip()
+            
+        with open(pagedir,"r") as f:            
             for line in f.readlines():
                 tepline=line.strip()
                 
@@ -47,8 +52,7 @@ class Website_pages:
                 self.allnames["input_names"].extend((self.getinput_names(tepline)))
                 self.allnames["href_names"].extend(self.gethref_name(tepline))#add href dir
                 self.allnames["id_class_names"].extend(self.getclass_id_names(tepline))#id or class names
-                self.title.extend(self.gettitle_name(tepline))
-                self.charset.extend(self.getcharset_name(tepline))
+                
                 
                 for i in self.allnames:
                     self.allnames[i]=list(set(self.allnames[i]))
@@ -58,6 +62,7 @@ class Website_pages:
                 self.allnames["href_names"]=list(set(self.allnames["href_names"]))
                 self.allnames["id_class_names"]=list(set(self.allnames["id_class_names"]))
                 '''
+        
                 
                 
     def getinput_names(self,instr):#<input name="tbox_pwd" type="password" id="tbox_pwd" class="dh_login_text" value="" />
@@ -105,7 +110,7 @@ class Website_pages:
             retlist.extend(i.strip().split())
             
         return retlist
-    
+    '''
     def gettitle_name(self,instr):
         restr=r'<title>(.*)<\/'
         it=re.finditer(restr, instr, re.I)
@@ -117,7 +122,7 @@ class Website_pages:
         tep= self.get_from_iter(it)
         
         return tep#list([x.replace("gb2312","gbk") for x in tep])
-        
+    '''
             
     def get_from_iter(self,it,groupid=1):#从re的iter中取names
         retnames=[]
@@ -147,12 +152,6 @@ class Website_pages:
         if len(lis1)+len(lis2)>0:        
             return float(overlap)/(len(lis1)+len(lis2)-overlap)
         return 0
-
-def judge_nonull(htmldir):
-    basepage=Website_pages(htmldir)
-    for i in basepage.allnames:
-        if len(basepage.allnames[i])<=1: return False
-    return True
 
 
 show_groups=False
@@ -195,20 +194,20 @@ def merge_groups(group1,group2):#合并俩个group,由两个分组合成新的�
             iset.difference_update(tepset)
         
         if len(iset)>0:
-            print "group2 left len:",len(iset),"->",iset
+            #print ("group2 left len:",len(iset),"->",iset)
             ret.append(iset)
             
     return ret
             
 #---------------------------------------------------------------------#   panel      
-dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
+#dir_web=u'F:\网络中心\网站相似度匹配\第一批首页'
 #dir_web=u'E:\wokmaterial\emergencyCenter\第一批首页'
-
+dir_web=u'../new_websites/pages'
 
 
 #---------------------------------------------------------------------#
-dirlis=map(lambda x:op.join(dir_web, x),os.listdir(dir_web))      
-
+dirlis=list(map(lambda x:op.join(dir_web, x),os.listdir(dir_web))   )   
+print (dirlis)
 feather_list=[]
 for i in dirlis:
     feather_list.append(Website_pages(i))
@@ -218,6 +217,14 @@ str_today = str(today)   #字符串型当前日期,2016-10-09格式
 
 fp=open("./log_"+str_today+".txt","w+")
 #---------------------------------------------------------------------#
+def judge_nonull(pageid):
+    basepage=feather_list[pageid]
+    for i in basepage.allnames:
+        if len(basepage.allnames[i])<=1: 
+            #print (basepage.allnames)
+            return False
+    return True
+
 
 def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
     veclis=[]
@@ -250,21 +257,21 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
     group_list=[range(len(dirlis))]
     
     while basepage_id<len(dirlis):
-        if not judge_nonull(dirlis[basepage_id]):#get a page that without null list
+        if not judge_nonull(basepage_id):#get a page that without null list
             basepage_id+=1
             continue
         
         
-        print '\nchoose:',basepage_id
-        print dirlis[basepage_id]
+        print ('\nchoose:'+str(basepage_id))
+        print (dirlis[basepage_id])
         
         veclis=get_overlaprate(basepage_id)#获取选定网页与所有的重叠度
         
-        print 'get vector len:',len(veclis)
+        print ('get vector len:'+str(len(veclis)))
         
         #----------------------------------------这里应该用一个聚类方法
         
-        dislist=np.array(map(lambda x:cosdistance(x,veclis[basepage_id]), veclis))#这里不合适,因为后面用来分组的话最好这里是一个线性的
+        dislist=np.array(list( map(lambda x:cosdistance(x,veclis[basepage_id]), veclis)) )#这里不合适,因为后面用来分组的话最好这里是一个线性的
         #dislist=np.array(map(lambda x:Euclidean_Distance(x,veclis[basepage_id]), veclis))
         
         
@@ -282,7 +289,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         group_list=merge_groups(retgroups,group_list)
         
         
-        print 'groups:',len(group_list),"  with threshold:",threshhold
+        print ('groups:'+str(len(group_list))+"  with threshold:"+str(threshhold))
         
         #show_groups_angle([[dislist[i] for i in j] for j in group_list] )
         
@@ -290,16 +297,19 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
         for i in group_list:
             if len(i)>2: 
                 cnt_len+=1
-                print i
+                print (i)
                 
                 for j in i:
                     #print feather_list[j].charset
                     tepstr="-->"+op.split(dirlis[j])[-1]+"<-->"#这里将html中的title加到后面，title要对应html中的charset进行相应decode才能显示中文
+                    '''
                     if len(feather_list[j].charset)>0 and len(feather_list[j].charset[0])>0 and len(feather_list[j].title)>0 and len(feather_list[j].title[0])>0:
                         tepstr+=feather_list[j].title[0].decode(feather_list[j].charset[0],'ignore')
+                    '''
+                    tepstr+=feather_list[j].title
                     
                     print (tepstr)
-                    pass
+                    
         
         basepage_id+=1
         #print args
@@ -318,7 +328,7 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
                 tep.printout()
                 print basepage.compare_to(tep),'\n'
         '''
-    print "the final groups len:",len(group_list)," with threshhold:",threshhold," len>2 is:",cnt_len
+    print ("the final groups len:"+str(len(group_list))+" with threshhold:"+str(threshhold)+" len>2 is:"+str(cnt_len))
     return group_list
 
 
@@ -404,7 +414,7 @@ if __name__ == '__main__':
         tep=start( float(i)/100000)
         lenlis.append(len(tep))
         
-        lenlist=np.array(map(lambda x:len(x), tep))
+        lenlist=np.array(list(map(lambda x:len(x), tep)))
         
         fp.write("\n\nget group len:"+str(len(tep))+' len>=2 is:'+str(sum((lenlist>=2)))+'\n')
         compare2groups(before, tep, dirlis)
@@ -419,7 +429,7 @@ if __name__ == '__main__':
     plt.scatter(range(len(lenlis)), lenlis, c='blue',s=1,marker='.')
     
     
-    plt.savefig(str_today+"save3.jpg")
+    plt.savefig(str_today+"save.jpg")
     
     plt.show()
     '''

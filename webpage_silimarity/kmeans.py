@@ -29,7 +29,7 @@ def cal_all_cores_dis(dat, groups, cores):#
     calculate all groups' distance
     '''
     if len(groups)!=len(cores): 
-        print "error len(groups)!=len(cores)"
+        print ("error len(groups)!=len(cores)")
         return None
     ret=0
     for ind,i in enumerate(groups):
@@ -71,7 +71,7 @@ def classify(dat, k=5,threshhold=0.001):
     item_l=len(dat[0])#元素长度
     
     k_vec=(max_item-min_item)*np.random.random([k,item_l])+min_item#随机的k个向量中心点
-    print k_vec
+    print (k_vec)
     
     groups,k_vec=forward_once(tep_dat, k_vec)
     new_dis=cal_all_cores_dis(tep_dat, groups, k_vec)

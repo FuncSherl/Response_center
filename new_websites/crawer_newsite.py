@@ -76,7 +76,7 @@ if __name__ == '__main__':
     excel_list=getiplist(excel_path)
     url=[x[0] for x in excel_list]
     
-    log=open(  op.join(resultdir,"results.txt")  ,"a+", encoding='utf-8')
+    log=open(  "./results.txt"  ,"a+", encoding='utf-8')
     #url=['192.168.1.1','www.baidu.com']
     err_cnt=0
     for ind,i in enumerate(url):
