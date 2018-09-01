@@ -11,15 +11,19 @@ import os.path as op
 from bs4 import BeautifulSoup
 import chardet,xlrd
 
+###########################################################################################################################panel
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
+proxy_dict = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
+timeout=(60,60)
 
+###########################################################################################################################
 
 def getpagewithdecode(url):
     #r = requests.get("http://httpbin.org/get", params=payload, headers=headers,data='this is data')
     try:
         #这一 timeout 值将会用作 connect 和 read 二者的 timeout。如果要分别制定，就传入一个元组
-        r = requests.get(url,headers=headers,timeout=(10,30))
+        r = requests.get(url,headers=headers,timeout=timeout,proxies=proxy_dict)
 
     except Exception as e:
         return repr(e),False
