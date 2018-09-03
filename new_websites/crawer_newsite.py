@@ -74,13 +74,20 @@ if __name__ == '__main__':
         os.makedirs(resultdir)
     
     excel_list=getiplist(excel_path)
+    '''
+    for i in excel_list:
+        print (i)
+    exit()
+    '''
     url=[x[0] for x in excel_list]
     
     log=open(  "./results.txt"  ,"a+", encoding='utf-8')
     #url=['192.168.1.1','www.baidu.com']
     err_cnt=0
     for ind,i in enumerate(url):
-        htt='http://'+i
+        htt=i
+        if not i.startswith('http'):
+            htt='http://'+i
         
         print (htt+"   "+str(ind)+"/"+str(len(url)))
         
