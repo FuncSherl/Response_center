@@ -429,7 +429,7 @@ if __name__ == '__main__':
     plt.scatter(range(len(lenlis)), lenlis, c='blue',s=1,marker='.')
     
     
-    plt.savefig(str_today+"save.jpg")
+    plt.savefig(str_today+"save.png")
     
     plt.show()
     '''
