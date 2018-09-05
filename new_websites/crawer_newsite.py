@@ -86,8 +86,12 @@ if __name__ == '__main__':
     err_cnt=0
     for ind,i in enumerate(url):
         htt=i
+        
+        str_txt=op.join(resultdir,str(ind)+ '_'+i +".txt")
+        
         if not i.startswith('http'):
             htt='http://'+i
+        else: str_txt=op.join(resultdir,str(ind)+".txt")
         
         print (htt+"   "+str(ind)+"/"+str(len(url)))
         
@@ -96,7 +100,7 @@ if __name__ == '__main__':
         #print (parse_page(tep))
         #print (excel_list[ind])
         if stat:
-            with open(  op.join(resultdir,str(ind)+ '_'+i +".txt"), 'w+', encoding='utf-8') as f: f.write(tep)
+            with open(  str_txt, 'w+', encoding='utf-8') as f: f.write(tep)
         else:
             err_cnt+=1
             log.write(str(ind)+"  "+htt+"  "+tep+'\n')
