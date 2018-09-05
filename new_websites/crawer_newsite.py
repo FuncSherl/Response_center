@@ -15,7 +15,7 @@ import chardet,xlrd
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
 proxy_dict = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
-timeout=(60,60)
+timeout=(20,30)
 
 ###########################################################################################################################
 
@@ -23,14 +23,14 @@ def getpagewithdecode(url):
     #r = requests.get("http://httpbin.org/get", params=payload, headers=headers,data='this is data')
     try:
         #这一 timeout 值将会用作 connect 和 read 二者的 timeout。如果要分别制定，就传入一个元组
-        r = requests.get(url,headers=headers,timeout=timeout,proxies=proxy_dict)
+        r = requests.get(url,headers=headers,timeout=timeout, verify=False)#,proxies=proxy_dict
 
     except Exception as e:
-        return repr(e),False
+        return repr(e),r.status_code,False
     else:
         tep= r.content
         r.encoding=chardet.detect(tep)['encoding']
-        return r.text,True
+        return r.text,r.status_code,True
 
 def parse_page(pagestr):
     '''
@@ -84,29 +84,41 @@ if __name__ == '__main__':
     log=open(  "./results.txt"  ,"a+", encoding='utf-8')
     #url=['192.168.1.1','www.baidu.com']
     err_cnt=0
+    skipcnt=0
+    newadd=0
     for ind,i in enumerate(url):
         htt=i
         
         str_txt=op.join(resultdir,str(ind)+ '_'+i +".txt")
         
         if not i.startswith('http'):
-            htt='http://'+i
+            if int(i.split(':')[-1].strip())==443:
+                htt='https://'+i
+            else :htt='http://'+i
+            
         else: str_txt=op.join(resultdir,str(ind)+".txt")
         
         print (htt+"   "+str(ind)+"/"+str(len(url)))
         
-        tep,stat=getpagewithdecode(htt)
-        #print tep
-        #print (parse_page(tep))
-        #print (excel_list[ind])
-        if stat:
-            with open(  str_txt, 'w+', encoding='utf-8') as f: f.write(tep)
+        if not os.path.exists(str_txt):#if this url is parsed
+            tep,httpcode,stat=getpagewithdecode(htt)
+            #print tep
+            #print (parse_page(tep))
+            #print (excel_list[ind])
+            if stat:
+                newadd+=1
+                with open(  str_txt, 'w+', encoding='utf-8') as f: f.write(tep)
+                print (htt,' done! code:',httpcode)
+            else:
+                err_cnt+=1
+                log.write(str(ind)+"  code:"+str(httpcode)+'   '+htt+"  "+tep+'\n')
+                print ('code:',httpcode,'  ',tep)
         else:
-            err_cnt+=1
-            log.write(str(ind)+"  "+htt+"  "+tep+'\n')
-            print (tep)
+            skipcnt+=1
+            print ('already exists,skiping:',skipcnt)
         print ("states:"+str(stat)+"   error count:"+str(err_cnt)+'\n')
         
+    print ("crawer done,newadd:",newadd)
     log.close()
     
     
