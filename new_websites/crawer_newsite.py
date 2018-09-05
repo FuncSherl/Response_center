@@ -23,7 +23,7 @@ def getpagewithdecode(url):
     #r = requests.get("http://httpbin.org/get", params=payload, headers=headers,data='this is data')
     try:
         #这一 timeout 值将会用作 connect 和 read 二者的 timeout。如果要分别制定，就传入一个元组
-        r = requests.get(url,headers=headers,timeout=timeout, verify=False)#,proxies=proxy_dict
+        r = requests.get(url,headers=headers,timeout=timeout, verify=False,proxies=proxy_dict)#
 
     except Exception as e:
         return repr(e),-1,False
