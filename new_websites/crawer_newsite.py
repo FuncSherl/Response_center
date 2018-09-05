@@ -108,7 +108,7 @@ if __name__ == '__main__':
             if stat:
                 newadd+=1
                 with open(  str_txt, 'w+', encoding='utf-8') as f: f.write(tep)
-                print (htt,' done! code:',httpcode)
+                print ('code:',httpcode,'  done!')
             else:
                 err_cnt+=1
                 log.write(str(ind)+"  code:"+str(httpcode)+'   '+htt+"  "+tep+'\n')
