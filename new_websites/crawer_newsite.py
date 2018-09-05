@@ -26,7 +26,7 @@ def getpagewithdecode(url):
         r = requests.get(url,headers=headers,timeout=timeout, verify=False)#,proxies=proxy_dict
 
     except Exception as e:
-        return repr(e),r.status_code,False
+        return repr(e),-1,False
     else:
         tep= r.content
         r.encoding=chardet.detect(tep)['encoding']
