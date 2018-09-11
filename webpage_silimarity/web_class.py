@@ -39,8 +39,13 @@ class Website_pages:
             
             
     def feed(self,pagedir):
-        with open(pagedir,"r") as f: 
-            sop=BeautifulSoup(f,"html5lib")
+        with open(pagedir,"rb") as f: 
+            tep=f.read()
+            chars=chardet.detect(tep)['encoding']
+            if not chars: chars='utf-8'
+            
+            sop=BeautifulSoup(tep.decode(chars,errors = 'ignore'),  "html5lib")
+            
             if sop.title: self.title=str(sop.title.string).strip()
             
         with open(pagedir,"r") as f:            
@@ -489,7 +494,7 @@ if __name__ == '__main__':
     
     #find_threshhold()
     
-    add_dir=u'../new_websites/test_addpages'
+    add_dir=u'../new_websites/fir_pages'
     add_a_dir(add_dir)
     
         
