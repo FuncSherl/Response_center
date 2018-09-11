@@ -12,6 +12,9 @@ import chardet,xlrd
 
 
 url='http://openaccess.thecvf.com/content_ECCV_2018/html/'
+output='./papers'
+
+if not op.isdir(output): os.makedirs(output)
 
 def schedule(a,b,c):
     '''''
@@ -40,7 +43,7 @@ def sec_page(lists):
         sop=BeautifulSoup(txt,"html5lib")
         tep=sop.select('div[id="content"] a')[0].get('href')
         
-        filname=op.join('./papers',(op.split(tep)[-1]))
+        filname=op.join(output,(op.split(tep)[-1]))
         print (ind,'/',len(lists),'-->',filname)
         print (url+tep) 
         
@@ -51,7 +54,7 @@ def sec_page(lists):
         else:
             print ('skip:',filname)
 
-if __name__ == '__main__':
+if __name__ == '__main__':    
     sec_urls=first_page(url)
     sec_urls=list(map(lambda x:url+x, sec_urls))
     sec_page(sec_urls)
