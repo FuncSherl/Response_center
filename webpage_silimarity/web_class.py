@@ -6,7 +6,6 @@ Created on 2018��7��11��
 '''
 
 import re,os
-import kmeans
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
@@ -419,8 +418,14 @@ def add_some_sites(sites, max_show=6):
         if ifshow:
             cluster_cnt+=1
             print('they belong to the cluster:')
-            for k in range(min(max_show, len(i))):
-                print('---->',op.split(dirlis[i[k]])[-1],"<-->",feather_list[i[k]].title)
+            
+            show_cnt=0
+            for k in i:
+                if k<st:
+                    print('---->',op.split(dirlis[k])[-1],"<-->",feather_list[k].title)
+                    show_cnt+=1
+                    if show_cnt>=max_show: break
+                
             print('\n\n')
             
         ifshow=False
@@ -477,23 +482,15 @@ if __name__ == '__main__':
     
     vec=tep.compare_to(tep2)
     print cosdistance(vec,vec)
-    '''
-    testlist=['../new_websites/pages/1295_210.40.163.102:80.txt', 
-              '../new_websites/pages/1139_120.77.211.47:80.txt', 
-              '../new_websites/pages/1095_120.26.126.182:443.txt', 
-              '../new_websites/pages/1079_120.198.40.227:8083.txt', 
-              '../new_websites/pages/1200_123.56.166.7:8090.txt', 
-              '../new_websites/pages/234_59.56.180.14:80.txt', 
-              '../new_websites/pages/774_103.231.146.25:80.txt', 
-              '../new_websites/pages/1293_210.13.210.88:80.txt', 
-              '../new_websites/pages/1166_121.196.237.155:80.txt']
+    '''    
     
     
-    '''
-    start(0.1)
-    '''
+    #start()
+    
     #find_threshhold()
-    add_some_sites(testlist)
+    
+    add_dir=u'../new_websites/test_addpages'
+    add_a_dir(add_dir)
     
         
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
