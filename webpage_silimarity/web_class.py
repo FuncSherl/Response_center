@@ -208,10 +208,11 @@ dir_web=u'../new_websites/pages'
 #---------------------------------------------------------------------#
 dirlis=list(map(lambda x:op.join(dir_web, x),os.listdir(dir_web))   )   
 print (dirlis)
+print ('initializing feather list...')
 feather_list=[]
 for i in dirlis:
     feather_list.append(Website_pages(i))
-    
+print ('initializing feather list done!!')
 today = datetime.date.today()   #datetime.date类型当前日期
 str_today = str(today)   #字符串型当前日期,2016-10-09格式
 
@@ -236,6 +237,7 @@ def get_overlaprate(basepage_id):#获取选定网页与所有的重叠度
         veclis.append(basepage.compare_to(tep))
     return veclis
          
+         
 def show_groups_angle(groups):
     '''
             分别计算每个点与全一向量的的夹角然后画出来
@@ -251,7 +253,10 @@ def show_groups_angle(groups):
 
 
     
-def start( threshhold):    #这里可以设置阈值，即距离达到多少判定为一组
+def start( threshhold=5e-4):    #这里可以设置阈值，即距离达到多少判定为一组
+    '''
+    use the dirlis and feature_list,with the threshhold, return a 2-d list which means the groups
+    '''
     basepage_id=0
     
     group_list=[range(len(dirlis))]
@@ -328,7 +333,8 @@ def start( threshhold):    #这里可以设置阈值，即距离达到多少判�
                 tep.printout()
                 print basepage.compare_to(tep),'\n'
         '''
-    print ("the final groups len:"+str(len(group_list))+" with threshhold:"+str(threshhold)+" len>2 is:"+str(cnt_len))
+    print ("the final groups len:"+str(len(group_list))+" with threshhold:"+str(threshhold)+" len>2 is:"+str(cnt_len)+'\n\n')
+    group_list=list(map(lambda x:list(x), group_list))
     return group_list
 
 
@@ -349,8 +355,6 @@ def cosdistance(lis1,lis2):#相似度最大为1，越大越相似
     return tep
         
     
-        
-        
 def Euclidean_Distance(lis1,lis2):#欧式距离,越小越相似,最大是[1]*5-[0]*5
     x=np.array(lis1)
     y=np.array(lis2)
@@ -384,33 +388,59 @@ def compare2groups(group1, group2, dirlis):#以group1为主，比较group2与1�
                 fp.write( "-->"+str(ins)+" len:"+str(len(ins))+' in:\n')
                 fp.write( "---->group1"+str(tepj)+" len:"+str(len(tepj))+'\n')
                 
-                fp.write( "-->"+str(map(lambda x:op.split(dirlis[x])[-1], ins))+'\n')
-                fp.write( "---->"+str(map(lambda x:op.split(dirlis[x])[-1], tepj))+'\n')
+                fp.write( "-->"+str(list(map(lambda x:op.split(dirlis[x])[-1], ins)))+'\n')
+                fp.write( "---->"+str(list(map(lambda x:op.split(dirlis[x])[-1], tepj)))+'\n')
     
         
     
+def add_some_sites(sites, max_show=6):
+    '''
+    input:a list of txt dirs, remember it should be full path
+    '''
+    if not sites or len(sites)<1: return
     
+    global dirlis,feather_list
+    
+    st=len(dirlis)
+    
+    dirlis.extend(sites)
+    for i in sites:
+        feather_list.append(Website_pages(i))
         
+    grous=start()
+    
+    cluster_cnt=0
+    ifshow=False
+    for i in grous:
+        for j in range(st, len(dirlis)):
+            if j in i:
+                ifshow=True
+                print (op.split(dirlis[j])[-1],'<--->', feather_list[j].title)
+        if ifshow:
+            cluster_cnt+=1
+            print('they belong to the cluster:')
+            for k in range(min(max_show, len(i))):
+                print('---->',op.split(dirlis[i[k]])[-1],"<-->",feather_list[i[k]].title)
+            print('\n\n')
+            
+        ifshow=False
+        
+    
+    print ('add some sites done! they belong to %d classes'%cluster_cnt)
 
-if __name__ == '__main__':
-    '''
-    tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
-    tep.printout()
+
+def add_a_dir(path):
+    tep=os.listdir(path)
+    tep=list(map(lambda x: op.join(path,x), tep))
+    add_some_sites(tep)
     
-    tep2=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/104.html')
-    tep2.printout()
-    
-    
-    vec=tep.compare_to(tep2)
-    print cosdistance(vec,vec)
-    '''
-    
-    
+
+def find_threshhold(iter_num=200):
     before=[]
     lenlis=[]
     stti=time.time()
     
-    for i in range(1,200):
+    for i in range(1,iter_num):
         tep=start( float(i)/100000)
         lenlis.append(len(tep))
         
@@ -432,9 +462,38 @@ if __name__ == '__main__':
     plt.savefig(str_today+"save.png")
     
     plt.show()
+        
+        
+
+if __name__ == '__main__':
+    
+    '''
+    tep=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/102.html')
+    tep.printout()
+    
+    tep2=Website_pages(u'E:\wokmaterial\emergencyCenter\第一批首页/104.html')
+    tep2.printout()
+    
+    
+    vec=tep.compare_to(tep2)
+    print cosdistance(vec,vec)
+    '''
+    testlist=['../new_websites/pages/1295_210.40.163.102:80.txt', 
+              '../new_websites/pages/1139_120.77.211.47:80.txt', 
+              '../new_websites/pages/1095_120.26.126.182:443.txt', 
+              '../new_websites/pages/1079_120.198.40.227:8083.txt', 
+              '../new_websites/pages/1200_123.56.166.7:8090.txt', 
+              '../new_websites/pages/234_59.56.180.14:80.txt', 
+              '../new_websites/pages/774_103.231.146.25:80.txt', 
+              '../new_websites/pages/1293_210.13.210.88:80.txt', 
+              '../new_websites/pages/1166_121.196.237.155:80.txt']
+    
+    
     '''
     start(0.1)
     '''
+    #find_threshhold()
+    add_some_sites(testlist)
     
         
     #print tep.overlap_rate(['aa','bdd','cd'], ['aa','bb','cc'])
