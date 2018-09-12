@@ -48,7 +48,7 @@ class Website_pages:
             
             if sop.title: self.title=str(sop.title.string).strip()
             
-        with open(pagedir,"r") as f:            
+        with open(pagedir,"r", encoding=chars, errors='ignore') as f:            
             for line in f.readlines():
                 tepline=line.strip()
                 
@@ -441,7 +441,7 @@ def add_some_sites(sites, max_show=6):
 
 def add_a_dir(path):
     tep=os.listdir(path)
-    tep=list(map(lambda x: op.join(path,x), tep))
+    tep=list(map(lambda x: op.join(path,x), tep))[0:8]
     add_some_sites(tep)
     
 
