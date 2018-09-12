@@ -441,7 +441,7 @@ def add_some_sites(sites, max_show=6):
 
 def add_a_dir(path):
     tep=os.listdir(path)
-    tep=list(map(lambda x: op.join(path,x), tep))[0:8]
+    tep=list(map(lambda x: op.join(path,x), tep))
     add_some_sites(tep)
     
 
