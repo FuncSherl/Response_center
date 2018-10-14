@@ -45,6 +45,7 @@ class build_block(gr.top_block):
         gr.top_block.__init__(self)
 
         d = uhd.find_devices(uhd.device_addr(args))
+        print (d)
         uhd_type = d[0].get('type')
 
         print "\nFound '%s' at args '%s'" % \
@@ -127,7 +128,7 @@ def main ():
     parser.add_option("-a", "--args", type="string", default="",
                       help="UHD device address args [default=%default]")
     parser.add_option("-t", action="store_true", dest="tx_enable",
-                      default=False, help="enable Tx path")
+                      default=True, help="enable Tx path")
     parser.add_option("-r", action="store_true", dest="rx_enable",
                       default=False, help="enable Rx path")
     (options, args) = parser.parse_args ()

@@ -94,6 +94,7 @@ class wfm_rx_block (gr.top_block):
 
         # sound card as final sink
         self.audio_sink = audio.sink(int(audio_rate), options.audio_output)
+        print ('print sound to ',options.audio_output)
 
         # taps for channel filter
         nfilts = 32
