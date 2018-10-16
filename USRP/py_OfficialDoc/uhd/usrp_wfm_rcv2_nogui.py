@@ -73,6 +73,7 @@ class wfm_rx_block (gr.top_block):
 
         # build graph
         stream_args = uhd.stream_args('fc32', channels=range(2))
+        print (stream_args)
         self.u = uhd.usrp_source(device_addr=options.args, stream_args=stream_args)
 
         # Set front end channel mapping

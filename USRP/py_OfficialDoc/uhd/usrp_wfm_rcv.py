@@ -76,6 +76,7 @@ class wfm_rx_block (stdgui2.std_top_block):
 
         # Set the subdevice spec
         if(options.spec):
+            print(options.spec)
             self.u.set_subdev_spec(options.spec, 0)
 
         # Set the antenna
@@ -105,6 +106,7 @@ class wfm_rx_block (stdgui2.std_top_block):
         self.volume_control = blocks.multiply_const_ff(self.vol)
 
         # sound card as final sink
+        print(options.audio_output)
         self.audio_sink = audio.sink(int (audio_rate),
                                      options.audio_output,
                                      False)  # ok_to_block
