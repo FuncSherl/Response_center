@@ -63,8 +63,7 @@ class pipeline(gr.hier_block2):
             sys.exit(1)
 
         print audio_rate, if_rate
-        fmtx = analog.nbfm_tx(audio_rate, if_rate, max_dev=5e3,
-	                      tau=75e-6, fh=0.925*if_rate/2.0)
+        fmtx = analog.nbfm_tx(audio_rate, if_rate, max_dev=5e3, tau=75e-6, fh=0.925*if_rate/2.0)
 
         # Local oscillator
         lo = analog.sig_source_c(if_rate,            # sample rate
@@ -92,7 +91,7 @@ class fm_tx_block(stdgui2.std_top_block):
                           help="select Rx Antenna where appropriate")
         parser.add_option("-s", "--samp-rate", type="eng_float", default=400e3,
                           help="set sample rate (bandwidth) [default=%default]")
-        parser.add_option("-f", "--freq", type="eng_float", default=None,
+        parser.add_option("-f", "--freq", type="eng_float", default=108e6,
                           help="set frequency to FREQ", metavar="FREQ")
         parser.add_option("-g", "--gain", type="eng_float", default=None,
                           help="set gain in dB (default is midpoint)")
