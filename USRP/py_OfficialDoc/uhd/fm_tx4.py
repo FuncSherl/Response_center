@@ -52,8 +52,9 @@ class pipeline(gr.hier_block2):
     def __init__(self, filename, lo_freq, audio_rate, if_rate):
 
         gr.hier_block2.__init__(self, "pipeline",
-                                gr.io_signature(0, 0, 0),
-                                gr.io_signature(1, 1, gr.sizeof_gr_complex))
+                                gr.io_signature(0, 0, 0),#O个输入
+                                gr.io_signature(1, 1, gr.sizeof_gr_complex))#至少一个至多1个输出，输出数据类型为complex
+        #对null_source来讲，就是输入为0，0，0输出为1，-1，数据长度，其中-1代表不限制最大输出端口
 
         try:
             src = blocks.file_source (gr.sizeof_float, filename, True)
