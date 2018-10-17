@@ -115,7 +115,7 @@ class my_top_block(gr.top_block):
 
         d = uhd.find_devices(uhd.device_addr(options.args))
         uhd_type = d[0].get('type')
-
+        print (uhd_type)
         stream_args = uhd.stream_args('fc32', channels=range(2))
         self.u = uhd.usrp_sink(device_addr=options.args, stream_args=stream_args)
 

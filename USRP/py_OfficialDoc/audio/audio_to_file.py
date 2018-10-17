@@ -35,7 +35,7 @@ class my_top_block(gr.top_block):
         parser = OptionParser(option_class=eng_option, usage=usage)
         parser.add_option("-I", "--audio-input", type="string", default="",
                           help="pcm input device name.  E.g., hw:0,0 or /dev/dsp")
-        parser.add_option("-r", "--sample-rate", type="eng_float", default=48000,
+        parser.add_option("-r", "--sample-rate", type="eng_float", default=32000,
                           help="set sample rate to RATE (48000)")
         parser.add_option("-N", "--nsamples", type="eng_float", default=None,
                           help="number of samples to collect [default=+inf]")

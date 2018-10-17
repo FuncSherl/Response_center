@@ -89,13 +89,13 @@ class fm_tx_block(stdgui2.std_top_block):
 	                  help="Subdevice of UHD device where appropriate")
         parser.add_option("-A", "--antenna", type="string", default=None,
                           help="select Rx Antenna where appropriate")
-        parser.add_option("-s", "--samp-rate", type="eng_float", default=400e3,
+        parser.add_option("-s", "--samp-rate", type="eng_float", default=350e3,
                           help="set sample rate (bandwidth) [default=%default]")
         parser.add_option("-f", "--freq", type="eng_float", default=108e6,
                           help="set frequency to FREQ", metavar="FREQ")
         parser.add_option("-g", "--gain", type="eng_float", default=None,
                           help="set gain in dB (default is midpoint)")
-        parser.add_option("-n", "--nchannels", type="int", default=4,
+        parser.add_option("-n", "--nchannels", type="int", default=1,
                            help="number of Tx channels [1,4]")
         #parser.add_option("","--debug", action="store_true", default=False,
         #                  help="Launch Tx debugger")
@@ -148,7 +148,7 @@ class fm_tx_block(stdgui2.std_top_block):
         step = 25e3
         offset = (0 * step, 1 * step, -1 * step,
                   2 * step, -2 * step, 3 * step, -3 * step)
-
+        print (self.audio_rate, self.usrp_rate)
         for i in range (options.nchannels):
             t = pipeline("audio-%d.dat" % (i % 4), offset[i],
                          self.audio_rate, self.usrp_rate)
