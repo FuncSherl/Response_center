@@ -130,6 +130,7 @@ class fm_tx_block(stdgui2.std_top_block):
         if(options.antenna):
             self.u.set_antenna(options.antenna, 0)
 
+        #"--samp-rate", type="eng_float", default=350e3
         self.usrp_rate = options.samp_rate
         self.u.set_samp_rate(self.usrp_rate)
         self.usrp_rate = self.u.get_samp_rate()
@@ -143,6 +144,7 @@ class fm_tx_block(stdgui2.std_top_block):
             options.gain = float(g.start()+g.stop())/2
 
         self.set_gain(options.gain)
+        #"--freq", type="eng_float", default=108e6
         self.set_freq(options.freq)
 
         self.sum = blocks.add_cc ()
