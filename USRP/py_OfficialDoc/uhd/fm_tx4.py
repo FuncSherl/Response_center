@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#
+#coding:utf-8
 # Copyright 2005-2007,2011 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
@@ -66,17 +66,18 @@ class pipeline(gr.hier_block2):
         print audio_rate, if_rate
         fmtx = analog.nbfm_tx(audio_rate, if_rate, max_dev=5e3, tau=75e-6, fh=0.925*if_rate/2.0)
 
-        # Local oscillator
-        lo = analog.sig_source_c(if_rate,            # sample rate
-                                 analog.GR_SIN_WAVE, # waveform type
-                                 lo_freq,            # frequency
-                                 1.0,                # amplitude
+        # Local oscillator本地振荡器
+        #src0 = analog.sig_source_f (sample_rate, analog.GR_SIN_WAVE, 350, ampl)
+        lo = analog.sig_source_c(if_rate,            # sample rate  options.samp_rate    350e3
+                                 analog.GR_SIN_WAVE, # waveform type正弦信号
+                                 lo_freq,            # frequency   step = 25e3   offset = (0 * step, 1 * step,
+                                 1.0,                # amplitude 幅值
                                  0)                  # DC Offset
         mixer = blocks.multiply_cc()
 
         self.connect(src, fmtx, (mixer, 0))
         self.connect(lo, (mixer, 1))
-        self.connect(mixer, self)
+        self.connect(mixer, self)#应该是连到自己这个模块的输出上
 
 class fm_tx_block(stdgui2.std_top_block):
     def __init__(self, frame, panel, vbox, argv):
@@ -117,7 +118,8 @@ class fm_tx_block(stdgui2.std_top_block):
 
         # ----------------------------------------------------------------
         # Set up constants and parameters
-
+        
+        #"--args", type="string", default=""
         self.u = uhd.usrp_sink(device_addr=options.args, stream_args=uhd.stream_args('fc32'))
 
         # Set the subdevice spec
