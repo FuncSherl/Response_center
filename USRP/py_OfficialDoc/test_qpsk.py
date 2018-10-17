@@ -12,21 +12,22 @@ import struct,sys
 class transmit_path(gr.top_block):
     def __init__(self):
         gr.top_block.__init__(self)
-                ## Modulator
+        ## Modulator
         self.modulator=digital.qpsk_mod(mod_code="gray",differential=True,samples_per_symbol=4,excess_bw=0.35,verbose=False,log=False)
-                ## USRP Sink
+        
+        ## USRP Sink
         self.u=uhd.usrp_sink(device_addr="",stream_args=uhd.stream_args('fc32'))
-                self.u.set_samp_rate(500e3)
-                self.u.set_center_freq(5.04e9,0)
-                self.u.set_gain(35,0)
-                self.u.set_antenna("TX/RX",0)
-                ## Packet Transmitter
-                self.packet_transmitter=digital.mod_pkts(self.modulator,access_code=None,msgq_limit=4,pad_for_usrp=True)
-                ## Connects
+        self.u.set_samp_rate(500e3)
+        self.u.set_center_freq(5.04e9,0)
+        self.u.set_gain(35,0)
+        self.u.set_antenna("TX/RX",0)
+        ## Packet Transmitter
+        self.packet_transmitter=digital.mod_pkts(self.modulator,access_code=None,msgq_limit=4,pad_for_usrp=True)
+        ## Connects
         self.connect(self.packet_transmitter,self.u)
-        def send_pkt(self,payload='',eof=False):
-                "Call to send a packet"
-                return self.packet_transmitter.send_pkt(payload,eof)
+    def send_pkt(self,payload='',eof=False):
+        "Call to send a packet"
+        return self.packet_transmitter.send_pkt(payload,eof)
  
 def main():
     tb=transmit_path()
