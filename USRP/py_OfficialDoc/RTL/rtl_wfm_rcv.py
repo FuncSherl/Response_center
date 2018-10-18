@@ -29,7 +29,7 @@ from gnuradio.wxgui import slider, powermate
 from gnuradio.wxgui import stdgui2, fftsink2, form
 from optparse import OptionParser
 import sys
-import wx
+import wx,osmosdr
 
 
 class wfm_rx_block (stdgui2.std_top_block):
@@ -72,8 +72,15 @@ class wfm_rx_block (stdgui2.std_top_block):
         self.fm_freq_max = options.freq_max
 
         # build graph
-        self.u = uhd.usrp_source(device_addr=options.args, stream_args=uhd.stream_args('fc32'))
-
+        
+        self.u = osmosdr.source()#uhd.usrp_source(device_addr=options.args, stream_args=uhd.stream_args('fc32'))
+        print 'get_antennas:',self.u.get_antennas()
+        print 'get_freq_range:',str(self.u.get_freq_range().values())
+        print 'get_gain:',self.u.get_gain()
+        print 'get_num_channels:',self.u.get_num_channels()
+        print 'get_sample_rates:',str(self.u.get_sample_rates().values())
+        
+        
         # Set the subdevice spec
         if(options.spec):
             print(options.spec)
@@ -83,13 +90,15 @@ class wfm_rx_block (stdgui2.std_top_block):
         if(options.antenna):
             self.u.set_antenna(options.antenna, 0)
 
-        usrp_rate  = 320e3
-        demod_rate = 320e3
-        audio_rate = 32e3
+        usrp_rate  = 1e6#250e3
+        demod_rate = 250e3
+        audio_rate = 25e3
         audio_decim = int(demod_rate / audio_rate)
 
-        self.u.set_samp_rate(usrp_rate)
-        dev_rate = self.u.get_samp_rate()
+        print 'set_sample_rate:',usrp_rate
+        self.u.set_sample_rate(usrp_rate)
+        dev_rate = self.u.get_sample_rate()
+        print 'get_sample_rate:',str(dev_rate)
 
         nfilts = 32
         chan_coeffs = filter.optfir.low_pass(nfilts,           # gain
