@@ -1,5 +1,5 @@
 sudo apt install libosmosdr-dev librtlsdr-dev libmirisdr-dev libhackrf-dev libairspy-dev
-
+#其中rtl-sdr要下载github上的git clone git://git.osmocom.org/rtl-sdr.git，因为里面有rtl-sdr.rules，涉及到usb权限问题
 git clone git://git.osmocom.org/gr-osmosdr
 cd gr-osmosdr/
 mkdir build
