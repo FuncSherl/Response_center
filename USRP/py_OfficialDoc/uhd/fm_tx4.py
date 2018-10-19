@@ -19,6 +19,7 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 #
+from gnuradio.gr.runtime_swig import block
 
 """
 Transmit N simultaneous narrow band FM signals.
@@ -49,6 +50,10 @@ import wx
 # instantiate one transmit chain for each call
 #这里新建了一个模块,后面会调用
 class pipeline(gr.hier_block2):
+    '''
+    t = pipeline("audio-%d.dat" % (i % 4), offset[i],
+                         self.audio_rate, self.usrp_rate)
+    '''
     def __init__(self, filename, lo_freq, audio_rate, if_rate):
 
         gr.hier_block2.__init__(self, "pipeline",
@@ -57,14 +62,20 @@ class pipeline(gr.hier_block2):
         #对null_source来讲，就是输入为0，0，0输出为1，-1，数据长度，其中-1代表不限制最大输出端口
 
         try:
-            src = blocks.file_source (gr.sizeof_float, filename, True)
+            #src = blocks.file_source (gr.sizeof_float, filename, True)
+            
+            '''
+            gnuradio.blocks.wavfile_source(char const * filename, bool repeat=False) → wavfile_source_sptr
+            Read stream from a Microsoft PCM (.wav) file, output floats
+            '''
+            src=blocks.wavfile_source('/home/sherl/git/Response_center/USRP/py_OfficialDoc/uhd/test_usrp.wav' , True)
         except RuntimeError:
             sys.stderr.write(("\nError: Could not open file '%s'\n\n" % \
                                   filename))
             sys.exit(1)
 
         print audio_rate, if_rate
-        fmtx = analog.nbfm_tx(audio_rate, if_rate, max_dev=5e3, tau=75e-6, fh=0.925*if_rate/2.0)
+        fmtx = analog.nbfm_tx(int(audio_rate), int(if_rate), max_dev=5e3, tau=75e-6, fh=0.925*if_rate/2.0)
 
         # Local oscillator本地振荡器
         #src0 = analog.sig_source_f (sample_rate, analog.GR_SIN_WAVE, 350, ampl)

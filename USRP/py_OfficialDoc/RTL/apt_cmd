@@ -8,3 +8,59 @@ cmake ../
 make
 sudo make install
 sudo ldconfig
+
+
+
+
+
+
+
+
+
+
+
+
+#----------------------------some problem
+使用GNURadio听FM广播的时候，遇到错误信息：
+
+...
+In the first case, please either detach or blacklist the kernel module (dvb_usb_rtl28xxu)
+...
+1
+2
+3
+遇到这个情况，Google到一个永久的解决方案：
+
+If this works, and you don't want to use the device for TV reception,
+you can stop the module from ever being loaded, solving the problem
+permanently.  The exact method depends on your Linux distribution, but
+for me (running Arch Linux) I create a file in /etc/modprobe.d with
+a .conf extension (I called it "no-rtl.conf") with these contents:
+
+  blacklist dvb_usb_rtl28xxu
+  blacklist rtl2832
+  blacklist rtl2830
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+基本的做法就是
+
+sudo vim /etc/modprobe.d/no-rtl.conf
+1
+在文件中写入：
+
+  blacklist dvb_usb_rtl28xxu
+  blacklist rtl2832
+  blacklist rtl2830
+--------------------- 
+作者：bestBT 
+来源：CSDN 
+原文：https://blog.csdn.net/bestbt/article/details/74315712 
+版权声明：本文为博主原创文章，转载请附上博文链接！

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#
+#coding:utf-8
 # Copyright 2004,2007,2013 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
@@ -39,19 +39,24 @@ class my_top_block(gr.top_block):
                           help="set sample rate to RATE (48000)")
         parser.add_option("-N", "--nsamples", type="eng_float", default=None,
                           help="number of samples to collect [default=+inf]")
-
+        parser.add_option("-o", "--output", type="string", default='audio-0.dat',
+                          help="number of samples to collect [default=+inf]")
         (options, args) = parser.parse_args ()
-        if len(args) != 1:
+        if len(options.output) <=0:
             parser.print_help()
             raise SystemExit, 1
-        filename = args[0]
+        filename = options.output
 
         sample_rate = int(options.sample_rate)
         src = audio.source (sample_rate, options.audio_input)
         dst = blocks.file_sink (gr.sizeof_float, filename)
+        #-------------------------！
+        turnup=blocks.multiply_const_ff(10)
+        test=audio.sink(sample_rate)
 
         if options.nsamples is None:
             self.connect((src, 0), dst)
+            self.connect((src,0),turnup, test)
         else:
             head = blocks.head(gr.sizeof_float, int(options.nsamples))
             self.connect((src, 0), head, dst)
