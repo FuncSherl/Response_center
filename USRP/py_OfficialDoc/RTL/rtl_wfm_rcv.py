@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#
+#coding:utf-8
 # Copyright 2005-2007,2009,2011,2012 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
@@ -31,6 +31,8 @@ from optparse import OptionParser
 import sys
 import wx,osmosdr
 
+usr_rtl=True
+
 
 class wfm_rx_block (stdgui2.std_top_block):
     def __init__(self,frame,panel,vbox,argv):
@@ -43,7 +45,7 @@ class wfm_rx_block (stdgui2.std_top_block):
 	                  help="Subdevice of UHD device where appropriate")
         parser.add_option("-A", "--antenna", type="string", default=None,
                           help="select Rx Antenna where appropriate")
-        parser.add_option("-f", "--freq", type="eng_float", default=100.1e6,
+        parser.add_option("-f", "--freq", type="eng_float", default=108e6,
                           help="set frequency to FREQ", metavar="FREQ")
         parser.add_option("-g", "--gain", type="eng_float", default=None,
                           help="set gain in dB (default is midpoint)")
@@ -72,14 +74,22 @@ class wfm_rx_block (stdgui2.std_top_block):
         self.fm_freq_max = options.freq_max
 
         # build graph
+        if usr_rtl:
+            self.u = osmosdr.source()
+        else:
+            self.u = uhd.usrp_source(device_addr=options.args, stream_args=uhd.stream_args('fc32'))#osmosdr.source()#
         
-        self.u = osmosdr.source()#uhd.usrp_source(device_addr=options.args, stream_args=uhd.stream_args('fc32'))
+        #print self.u.__dict__    
+        
         print 'get_antennas:',self.u.get_antennas()
-        print 'get_freq_range:',str(self.u.get_freq_range().values())
-        print 'get_gain:',self.u.get_gain()
-        print 'get_num_channels:',self.u.get_num_channels()
-        print 'get_sample_rates:',str(self.u.get_sample_rates().values())
-        
+        if usr_rtl:
+            print 'get_freq_range:',str(self.u.get_freq_range().values())
+            
+            print 'get_gain:',self.u.get_gain()
+            print 'get_num_channels:',self.u.get_num_channels()
+            print 'get_sample_rates:',str(self.u.get_sample_rates().values())
+        else:
+            print "get_subdev_spec:",str(self.u.get_subdev_spec())
         
         # Set the subdevice spec
         if(options.spec):
@@ -90,26 +100,34 @@ class wfm_rx_block (stdgui2.std_top_block):
         if(options.antenna):
             self.u.set_antenna(options.antenna, 0)
 
-        usrp_rate  = 1e6#250e3
-        demod_rate = 250e3
-        audio_rate = 25e3
+        usrp_rate  = 2e6#250e3
+        demod_rate = usrp_rate#这里需求频率应等于上面usrp传来的频率，否则在wfm_rcv里面解调会对不上频率
+        audio_rate = 44.1e3
         audio_decim = int(demod_rate / audio_rate)
 
         print 'set_sample_rate:',usrp_rate
-        self.u.set_sample_rate(usrp_rate)
-        dev_rate = self.u.get_sample_rate()
-        print 'get_sample_rate:',str(dev_rate)
+        if usr_rtl:
+            self.u.set_sample_rate(usrp_rate)
+            dev_rate = self.u.get_sample_rate() #检验设定的采样率是否成功
+            print 'get_sample_rate:',str(dev_rate)
+        else: 
+            self.u.set_samp_rate(usrp_rate)
+            dev_rate = self.u.get_samp_rate() #检验设定的采样率是否成功
+            print 'get_sample_rate:',str(dev_rate)
+        
 
         nfilts = 32
-        chan_coeffs = filter.optfir.low_pass(nfilts,           # gain
-                                             nfilts*usrp_rate, # sampling rate
-                                             80e3,             # passband cutoff
-                                             115e3,            # stopband cutoff
+        chan_coeffs = filter.optfir.low_pass(1,           # gain
+                                             usrp_rate, # sampling rate
+                                             300e3,             # passband cutoff
+                                             390e3,            # stopband cutoff
                                              0.1,              # passband ripple
                                              60)               # stopband attenuation
+        print 'rrate:',usrp_rate,'/',dev_rate
         rrate = usrp_rate / dev_rate
-        self.chan_filt = filter.pfb.arb_resampler_ccf(rrate, chan_coeffs, nfilts)
-
+        self.chan_filt = filter.pfb.arb_resampler_ccf(rrate ,chan_coeffs, 30,nfilts)#
+        #print self.chan_filt
+        print 'demod_rate:',demod_rate,' audio_decim',audio_decim
         self.guts = analog.wfm_rcv(demod_rate, audio_decim)
 
         self.volume_control = blocks.multiply_const_ff(self.vol)
@@ -117,11 +135,10 @@ class wfm_rx_block (stdgui2.std_top_block):
         # sound card as final sink
         print(options.audio_output)
         self.audio_sink = audio.sink(int (audio_rate),
-                                     options.audio_output,
-                                     False)  # ok_to_block
+                                     options.audio_output)  # ok_to_block
 
         # now wire it all together
-        self.connect(self.u, self.chan_filt, self.guts,
+        self.connect(self.u, self.chan_filt, self.guts,#
                      self.volume_control, self.audio_sink)
 
         self._build_gui(vbox, usrp_rate, demod_rate, audio_rate)
@@ -133,7 +150,7 @@ class wfm_rx_block (stdgui2.std_top_block):
 
         if options.volume is None:
             g = self.volume_range()
-            options.volume = float(g[0]+g[1])/2
+            options.volume = float(g[0]+g[1])/3*2
 
         frange = self.u.get_freq_range()
         if(frange.start() > self.fm_freq_max or frange.stop() <  self.fm_freq_min):
@@ -148,6 +165,8 @@ class wfm_rx_block (stdgui2.std_top_block):
 
         self.set_gain(options.gain)
         self.set_vol(options.volume)
+        
+        print 'setting freq:',options.freq
         if not(self.set_freq(options.freq)):
             self._set_status_msg("Failed to set initial frequency")
 
@@ -167,6 +186,13 @@ class wfm_rx_block (stdgui2.std_top_block):
 					       ref_scale=32768.0, ref_level=0, y_divs=12)
             self.connect (self.u, self.src_fft)
             vbox.Add (self.src_fft.win, 4, wx.EXPAND)
+            ''''''
+            self.src_fft2 = fftsink2.fft_sink_c(self.panel, title="my panel",
+                                               fft_size=512, sample_rate=usrp_rate,
+                           ref_scale=32768.0, ref_level=0, y_divs=12)
+            self.connect (self.chan_filt, self.src_fft2)
+            vbox.Add (self.src_fft2.win, 4, wx.EXPAND)
+            
 
         if 1:
             post_filt_fft = fftsink2.fft_sink_f(self.panel, title="Post Demod",
@@ -293,7 +319,7 @@ class wfm_rx_block (stdgui2.std_top_block):
         self.src_fft.set_baseband_freq(self.freq)
 
     def volume_range(self):
-        return (-20.0, 0.0, 0.5)
+        return (-20.0, 15.0, 0.5)
 
 
 if __name__ == '__main__':

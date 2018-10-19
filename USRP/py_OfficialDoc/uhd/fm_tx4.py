@@ -33,7 +33,7 @@ audio_to_file.py
 """
 
 from gnuradio import gr, eng_notation
-from gnuradio import uhd
+from gnuradio import uhd,audio
 from gnuradio import analog
 from gnuradio import blocks
 from gnuradio.eng_option import eng_option
@@ -91,7 +91,7 @@ class fm_tx_block(stdgui2.std_top_block):
 	                  help="Subdevice of UHD device where appropriate")
         parser.add_option("-A", "--antenna", type="string", default=None,
                           help="select Rx Antenna where appropriate")
-        parser.add_option("-s", "--samp-rate", type="eng_float", default=350e3,
+        parser.add_option("-s", "--samp-rate", type="eng_float", default=320e3,
                           help="set sample rate (bandwidth) [default=%default]")
         parser.add_option("-f", "--freq", type="eng_float", default=108e6,
                           help="set frequency to FREQ", metavar="FREQ")
@@ -121,7 +121,7 @@ class fm_tx_block(stdgui2.std_top_block):
         
         #"--args", type="string", default=""
         self.u = uhd.usrp_sink(device_addr=options.args, stream_args=uhd.stream_args('fc32'))
-
+        
         # Set the subdevice spec
         if(options.spec):
             self.u.set_subdev_spec(options.spec, 0)
@@ -130,7 +130,7 @@ class fm_tx_block(stdgui2.std_top_block):
         if(options.antenna):
             self.u.set_antenna(options.antenna, 0)
 
-        #"--samp-rate", type="eng_float", default=350e3
+        #"--samp-rate", type="eng_float", default=320e3
         self.usrp_rate = options.samp_rate
         self.u.set_samp_rate(self.usrp_rate)
         self.usrp_rate = self.u.get_samp_rate()
@@ -161,6 +161,7 @@ class fm_tx_block(stdgui2.std_top_block):
 
         self.gain = blocks.multiply_const_cc (1.0 / options.nchannels)
 
+        self.audio_sink = audio.sink(self.audio_rate)
         # connect it all
         self.connect (self.sum, self.gain)
         self.connect (self.gain, self.u)
