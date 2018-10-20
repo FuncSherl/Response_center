@@ -45,7 +45,7 @@ class wfm_rx_block (stdgui2.std_top_block):
 	                  help="Subdevice of UHD device where appropriate")
         parser.add_option("-A", "--antenna", type="string", default=None,
                           help="select Rx Antenna where appropriate")
-        parser.add_option("-f", "--freq", type="eng_float", default=108e6,
+        parser.add_option("-f", "--freq", type="eng_float", default=102e6,
                           help="set frequency to FREQ", metavar="FREQ")
         parser.add_option("-g", "--gain", type="eng_float", default=None,
                           help="set gain in dB (default is midpoint)")
@@ -80,6 +80,7 @@ class wfm_rx_block (stdgui2.std_top_block):
             self.u = uhd.usrp_source(device_addr=options.args, stream_args=uhd.stream_args('fc32'))#osmosdr.source()#
         
         #print self.u.__dict__    
+        #class gnuradio.filter.rational_resampler_fff(interpolation, decimation, taps=None, fractional_bw=None)
         
         print 'get_antennas:',self.u.get_antennas()
         if usr_rtl:
