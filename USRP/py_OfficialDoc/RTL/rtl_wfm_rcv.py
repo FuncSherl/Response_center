@@ -28,6 +28,7 @@ from gnuradio.eng_option import eng_option
 from gnuradio.wxgui import slider, powermate
 from gnuradio.wxgui import stdgui2, fftsink2, form
 from optparse import OptionParser
+from gnuradio.filter import firdes
 import sys
 import wx,osmosdr
 
@@ -47,7 +48,7 @@ class wfm_rx_block (stdgui2.std_top_block):
                           help="select Rx Antenna where appropriate")
         parser.add_option("-f", "--freq", type="eng_float", default=102e6,
                           help="set frequency to FREQ", metavar="FREQ")
-        parser.add_option("-g", "--gain", type="eng_float", default=None,
+        parser.add_option("-g", "--gain", type="eng_float", default=40,
                           help="set gain in dB (default is midpoint)")
         parser.add_option("-V", "--volume", type="eng_float", default=None,
                           help="set volume (default is midpoint)")
@@ -100,36 +101,62 @@ class wfm_rx_block (stdgui2.std_top_block):
         # Set the antenna
         if(options.antenna):
             self.u.set_antenna(options.antenna, 0)
+        #测试为什么这里db这么低
+        '''
+        self.u.set_dc_offset_mode(0, 0)
+        self.u.set_iq_balance_mode(0, 0)
+        self.u.set_gain_mode(False, 0)
+        self.u.set_gain(10,0)
+        self.u.set_if_gain(20, 0)
+        self.u.set_bb_gain(20, 0)
+        '''
 
+
+        #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
         usrp_rate  = 2e6#250e3
-        demod_rate = usrp_rate#这里需求频率应等于上面usrp传来的频率，否则在wfm_rcv里面解调会对不上频率
-        audio_rate = 44.1e3
-        audio_decim = int(demod_rate / audio_rate)
+        #demod_rate = usrp_rate#这里需求频率应等于上面usrp传来的频率，否则在wfm_rcv里面解调会对不上频率
+        audio_rate = 24e3
+        #audio_decim = int(demod_rate / audio_rate)
 
         print 'set_sample_rate:',usrp_rate
         if usr_rtl:
             self.u.set_sample_rate(usrp_rate)
-            dev_rate = self.u.get_sample_rate() #检验设定的采样率是否成功
-            print 'get_sample_rate:',str(dev_rate)
+            self.dev_rate = self.u.get_sample_rate() #检验设定的采样率是否成功
+            
         else: 
             self.u.set_samp_rate(usrp_rate)
-            dev_rate = self.u.get_samp_rate() #检验设定的采样率是否成功
-            print 'get_sample_rate:',str(dev_rate)
+            self.dev_rate = self.u.get_samp_rate() #检验设定的采样率是否成功
+        print 'get_sample_rate:',str(self.dev_rate)
         
+        self.declimation1=8
+        self.rational_resamp1= filter.rational_resampler_ccc(
+                interpolation=1,
+                decimation=self.declimation1,
+                taps=None,
+                fractional_bw=None,
+        )
+        
+        self.freq_now=self.dev_rate/self.declimation1
+        print 'after declimation1,freq:',self.freq_now
 
-        nfilts = 32
+        '''
         chan_coeffs = filter.optfir.low_pass(1,           # gain
                                              usrp_rate, # sampling rate
-                                             300e3,             # passband cutoff
-                                             390e3,            # stopband cutoff
+                                             200e3,             # passband cutoff
+                                             300e3,            # stopband cutoff
                                              0.1,              # passband ripple
                                              60)               # stopband attenuation
-        print 'rrate:',usrp_rate,'/',dev_rate
-        rrate = usrp_rate / dev_rate
-        self.chan_filt = filter.pfb.arb_resampler_ccf(rrate ,chan_coeffs, 30,nfilts)#
-        #print self.chan_filt
-        print 'demod_rate:',demod_rate,' audio_decim',audio_decim
-        self.guts = analog.wfm_rcv(demod_rate, audio_decim)
+        
+        self.chan_filt = filter.pfb.arb_resampler_ccf(1 ,chan_coeffs)#
+        '''
+        self.chan_filt = filter.fir_filter_ccf(1, firdes.low_pass(
+            1, usrp_rate, 250e3, 100e3, firdes.WIN_HAMMING, 6.76))
+        
+        #print 'rrate:',usrp_rate,'/',self.dev_rate
+        #rrate = usrp_rate / self.dev_rate
+        audio_decim=int(self.freq_now/audio_rate)
+        print 'demand audio rate:',audio_rate,'\nfreq_now:',self.freq_now,'\ndecided into wfm_rcv audio_decim:',audio_decim
+        self.guts = analog.wfm_rcv(int(self.freq_now), audio_decim)
 
         self.volume_control = blocks.multiply_const_ff(self.vol)
 
@@ -139,16 +166,17 @@ class wfm_rx_block (stdgui2.std_top_block):
                                      options.audio_output)  # ok_to_block
 
         # now wire it all together
-        self.connect(self.u, self.chan_filt, self.guts,#
+        self.connect(self.u,self.rational_resamp1, self.chan_filt, self.guts,#
                      self.volume_control, self.audio_sink)
 
-        self._build_gui(vbox, usrp_rate, demod_rate, audio_rate)
+        self._build_gui(vbox, usrp_rate,  audio_rate)
 
         if options.gain is None:
             # if no gain was specified, use the mid-point in dB
             g = self.u.get_gain_range()
             options.gain = float(g.start()+g.stop())/2
-
+        
+        
         if options.volume is None:
             g = self.volume_range()
             options.volume = float(g[0]+g[1])/3*2
@@ -163,7 +191,7 @@ class wfm_rx_block (stdgui2.std_top_block):
 
 
         # set initial values
-
+        
         self.set_gain(options.gain)
         self.set_vol(options.volume)
         
@@ -175,7 +203,7 @@ class wfm_rx_block (stdgui2.std_top_block):
         self.frame.GetStatusBar().SetStatusText(msg, which)
 
 
-    def _build_gui(self, vbox, usrp_rate, demod_rate, audio_rate):
+    def _build_gui(self, vbox, usrp_rate, audio_rate):
 
         def _form_set_freq(kv):
             return self.set_freq(kv['freq'])
@@ -311,8 +339,11 @@ class wfm_rx_block (stdgui2.std_top_block):
         return False
 
     def set_gain(self, gain):
+        print "setting gain:",gain
         self.myform['gain'].set_value(gain)     # update displayed value
-        self.u.set_gain(gain)
+        self.u.set_gain(gain,0)
+        self.u.set_if_gain(20, 0)
+        self.u.set_bb_gain(20, 0)
 
     def update_status_bar (self):
         msg = "Volume:%r  Setting:%s" % (self.vol, self.state)
@@ -320,7 +351,7 @@ class wfm_rx_block (stdgui2.std_top_block):
         self.src_fft.set_baseband_freq(self.freq)
 
     def volume_range(self):
-        return (-20.0, 15.0, 0.5)
+        return (-17.0, 20.0, 0.5)
 
 
 if __name__ == '__main__':

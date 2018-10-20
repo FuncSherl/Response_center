@@ -18,7 +18,7 @@ import sys
 from gnuradio.wxgui import stdgui2, fftsink2
 import wx
 
-
+use_wavfile=True
 
 
 class fm_tx_block(stdgui2.std_top_block):
@@ -28,8 +28,16 @@ class fm_tx_block(stdgui2.std_top_block):
 
         #---------------------------------------------src block---------------------------------------------------------------
         #self.usrp_out=uhd.usrp_sink()
-        self.src=blocks.wavfile_source('/home/sherl/git/Response_center/USRP/py_OfficialDoc/uhd/test_usrp.wav' , True)
-        print 'opening wav:',str(self.src.sample_rate()),str(self.src.channels())
+        
+        #这是用文件发送时
+        if use_wavfile:
+            self.src=blocks.wavfile_source('/home/sherl/git/Response_center/USRP/py_OfficialDoc/uhd/test_usrp.wav' , True)
+            print 'opening wav:',str(self.src.sample_rate()),str(self.src.channels())
+        
+        #用声卡发送时
+        else:
+            self.setaudiorate=44100
+            self.src=audio.source(self.setaudiorate)
         '''
         gnuradio.audio.sink(int sampling_rate, std::string const device_name, bool ok_to_block=True) → sink_sptr
         Creates a sink from an audio device.
@@ -42,8 +50,12 @@ class fm_tx_block(stdgui2.std_top_block):
         #"--args", type="string", default=""
         self.u = uhd.usrp_sink(device_addr="", stream_args=uhd.stream_args('fc32'))
         
-        self.sw_interp = 4
-        self.audio_rate = self.src.sample_rate()#self.usrp_rate / self.sw_interp   
+        self.sw_interp = 6
+        
+        if use_wavfile:
+            self.audio_rate =self.src.sample_rate()
+        else: 
+            self.audio_rate =self.setaudiorate #
 
         tep=self.audio_rate*self.sw_interp
         print 'setting sample rate:',tep
@@ -53,8 +65,8 @@ class fm_tx_block(stdgui2.std_top_block):
         
         
         g = self.u.get_gain_range()
-        self.gain = float(g.start()+g.stop())/2
-        print 'gain:',str(g.start()),' --> ',str(g.stop),' at:',self.gain
+        self.gain = float(g.start()+g.stop())/2+20
+        print 'gain:',str(g.start()),' --> end',' at:',self.gain
         self.u.set_gain(self.gain, 0)
         
         self.ifrate=102e6  #这里设定发送频率
@@ -68,7 +80,7 @@ class fm_tx_block(stdgui2.std_top_block):
         #self.sum = blocks.add_cc () #这里只有一个端口就行，不同于fm_tx4.py
         
         print ('audio_rate, quad_rate:',self.audio_rate,self.usrp_rate)
-        fmtx = analog.nbfm_tx(int(self.audio_rate), int(self.usrp_rate))#, max_dev=5e3, tau=75e-6, fh=0.925*self.usrp_rate/2.0
+        fmtx = analog.nbfm_tx(int(round(self.audio_rate,0)), int(round(self.usrp_rate,0)))#, max_dev=5e3, tau=75e-6, fh=0.925*self.usrp_rate/2.0
 
         # Local oscillator本地振荡器
         #src0 = analog.sig_source_f (sample_rate, analog.GR_SIN_WAVE, 350, ampl)
