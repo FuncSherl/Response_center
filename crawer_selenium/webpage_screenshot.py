@@ -73,7 +73,7 @@ def getiplist(excel_p=excel_path):
         ipaddr='http://'+ipaddr
             
         ip_d=ipaddr+":"+str(int(tep[1]))
-        print ('\nprocing:'+ip_d)
+        print '\n',i,'/',table.nrows,' procing:',ip_d
         capture(ip_d)
             
         
