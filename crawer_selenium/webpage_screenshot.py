@@ -6,49 +6,82 @@ Created on 2019年1月17日
 '''
 
 from selenium import webdriver
-import time,os
-import chardet,xlrd
+import time,os,re
+import chardet,xlrd,xlwt
 import os.path as op
 #from pyvirtualdisplay import Display
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 chrome_options = webdriver.ChromeOptions()
-#chrome_options.add_argument('headless')
+chrome_options.add_argument('headless')
 #chrome_options.add_argument('no-sandbox')
 
-savedir='./result_screenshot'
+savedir=op.join(os.getcwd(), 'result_screenshot')
 if not op.exists(savedir): os.makedirs(savedir)
 
-excel_path=''
+excel_path='./hnyx-ips.xlsx'
+timeout=3
+
+
+def check_ip(ipAddr):
+    compile_ip=re.compile('^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$')
+    if compile_ip.match(ipAddr):
+        return True  
+    else:  
+        return False
 
 
 def capture(url):
     browser = webdriver.Chrome(chrome_options=chrome_options) # Get local session of chrome
-    browser.set_window_size(800, 600)
-    browser.get(url) # Load page
-  
-    time.sleep(3)
-  
+    #browser.set_window_size(800, 600)
+    browser.maximize_window()
+    #browser.set_page_load_timeout(5) #
+    
+    browser.implicitly_wait(timeout)
     try:
-        picture_url=browser.save_screenshot(op.join(savedir ,url+'.png'))
-        print("%s ：截图成功！！！" % picture_url)
+        browser.get(url) # Load page
     except BaseException as msg:
-        print("%s ：截图失败！！！" % msg)
+        print ('Error:%s'%msg)
+        browser.close()
+        return False
+  
+    #time.sleep(3) #等待网页加载完成
+    
+    print ('loading...')
+    imgname=url.replace(':','-').replace('.','_').replace('/','')
+    imgname=op.join(savedir ,imgname+'.png')
+    picture_url=browser.save_screenshot(imgname)
+    if picture_url: 
+        print('Success->%s:%s' % (imgname, browser.title))
+    else:
+        print('!!!Error->%s:%s' % (url,imgname))
     browser.close()
     
-def getiplist(excel_p):
+    return True
+    
+def getiplist(excel_p=excel_path):
     data=xlrd.open_workbook(excel_p)
     table=data.sheets()[0]
     
-    ret=[]
+    
     for i in range(1,table.nrows):
         #print table.cell(1,2).value
         tep=table.row_values(i)
         
-        ip_d=[tep[0]+":"+str(int(tep[1])), (tep[2]), tep[3]]
-        ret.append( ip_d)
+        ipaddr=tep[0]
+
+        ipaddr='http://'+ipaddr
+            
+        ip_d=ipaddr+":"+str(int(tep[1]))
+        print ('\nprocing:'+ip_d)
+        capture(ip_d)
+            
         
-    return ret
+
 
 if __name__ == '__main__':
+    #capture('http://www.baidu.com')
+    getiplist()
     pass
+
+
