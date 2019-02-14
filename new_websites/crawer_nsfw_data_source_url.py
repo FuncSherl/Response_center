@@ -4,7 +4,7 @@ Created on Feb 14, 2019
 
 @author: root
 '''
-import os
+import os,threading
 import os.path as op
 import urllib2
 import requests
@@ -17,11 +17,12 @@ req_sess.mount('https://', HTTPAdapter(max_retries=3))
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
-outpath=r'/media/sherl/本地磁盘1/data_DL/nsfw_data_source_imgs'
+outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
+thread_maxcnt=12
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
-proxy_dict = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
-TIMEOUT=(20,30)
+proxy_dict_ss = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
+TIMEOUT=(8,8)
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -81,15 +82,15 @@ def oneurl_download(url, outp, proxy_dict=None):
                 
     except :
         # try again
-        if not proxy_dict:
-            print 'trying use proxy ...'
-            return oneurl_download(url, outp, proxy_dict=proxy_dict)
+        if proxy_dict is None:
+            print 'exception happend:trying use proxy ...'
+            return oneurl_download(url, outp, proxy_dict_ss)
         else:
             return False   
     return imgfilecheck(outfilename)
 
 
-def one_txt_download(txtpath, outp):
+def one_txt_download(txtpath, outp, index=0):
     cnt_true=0
     with open(txtpath,'r') as f:
         freadl=f.readlines()
@@ -101,17 +102,41 @@ def one_txt_download(txtpath, outp):
             
             if res:
                 cnt_true+=1
-                print 'download ',i,' success'
+                print 'thread:',index,':download ',tepi,' success'
             else:
-                print 'download ',i,' failed'
+                print 'thread:',index,':download ',tepi,' failed'
     print 'download ',txtpath,' done-->',cnt_true,'/',l
     return cnt_true,l
 
+
+
 def main():
+    tcnt=0
+    threadpool=[]
+    nexti=False
     paths=getalltxtpath_and_buildoutputpath(inpath , outpath)
     for ind,i in enumerate(paths):
-        print 'txt file cnts:',ind,'/',len(paths)
-        one_txt_download(*i)
+        nexti=False
+        if tcnt<thread_maxcnt:
+            tcnt+=1
+            print 'txt file cnts:',ind,'/',len(paths)
+            print 'creating thread:',ind
+            t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind))
+            t.start()
+            threadpool.append(t)
+        else:
+            while not nexti:
+                for ind in range(len(threadpool)):
+                    if not threadpool[ind].isAlive():
+                        print 'one thread down,creating thread :',ind
+                        t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind))
+                        t.start()
+                        threadpool[ind]=t
+                        nexti=True
+                        break
+            
+                
+                
 
 if __name__ == '__main__':
     main()
