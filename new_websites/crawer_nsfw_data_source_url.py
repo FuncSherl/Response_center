@@ -134,6 +134,8 @@ def main():
                         threadpool[ind]=t
                         nexti=True
                         break
+    for i in threadpool:
+        i.join()
             
                 
                 
