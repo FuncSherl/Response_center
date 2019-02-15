@@ -46,15 +46,20 @@ examples:
 http://24.media.tumblr.com/b8192831bbbf40c64d9d9027aa092e02/tumblr_mi7btdQ4ui1rj6ivfo1_1280.jpg
 '''
 def imgfilecheck(fpath):
-    tep=cv2.VideoCapture(fpath)
-    if (not op.exists(fpath)) or op.getsize(fpath)<=1024 or \
-    ( (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None) and (not tep.isOpened() ) ):
-        if op.exists(fpath):os.remove(fpath)    #删除文件
-        #print 'judge error:',imghdr.what(fpath)
+    try:
+        tep=cv2.VideoCapture(fpath)
+        if (not op.exists(fpath)) or op.getsize(fpath)<=1024 or \
+        ( (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None) and (not tep.isOpened() ) ):
+            if op.exists(fpath):os.remove(fpath)    #删除文件
+            #print 'judge error:',imghdr.what(fpath)
+            tep.release()
+            return False
         tep.release()
+        return True
+    except Exception as e: 
+        tep.release()
+        print e
         return False
-    tep.release()
-    return True
 
 def oneurl_download(url, outp, proxy_dict=None):
     filename=op.split(url)[-1].split('?')[0]
@@ -84,7 +89,8 @@ def oneurl_download(url, outp, proxy_dict=None):
             for chunk in resp.iter_content(chunk_size=1024):
                 fh.write(chunk)
                 
-    except :
+    except Exception as e: 
+        print (e)
         # try again
         if proxy_dict is None:
             time.sleep(1)
