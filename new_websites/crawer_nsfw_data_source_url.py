@@ -68,6 +68,8 @@ def oneurl_download(url, outp, proxy_dict=None):
     if imgfilecheck(outfilename): 
         return True
     
+    error_str=''
+    
     try:
         resp = req_sess.get(url,
                             stream=True,
@@ -91,6 +93,7 @@ def oneurl_download(url, outp, proxy_dict=None):
                 
     except Exception as e: 
         print (e)
+        error_str=str(e)
         # try again
         if proxy_dict is None:
             time.sleep(1)
@@ -99,7 +102,7 @@ def oneurl_download(url, outp, proxy_dict=None):
         else:
             return False   
     time.sleep(1)
-    return imgfilecheck(outfilename)
+    return imgfilecheck(outfilename),resp.status_code,error_str
 
 
 def one_txt_download(txtpath, outp, index=0):
@@ -111,13 +114,13 @@ def one_txt_download(txtpath, outp, index=0):
         for ind,i in enumerate(freadl):
             print ind,'/',l
             tepi=i.strip()
-            res=oneurl_download(tepi, outp)
+            res,ecode,estr=oneurl_download(tepi, outp)
             
             if res:
                 cnt_true+=1
                 print 'thread:',index,':download ',tepi,' success'
             else:
-                error_fp.write(tepi+'\n')
+                error_fp.write(tepi+' '+str(ecode)+' '+estr+'\n')
                 print 'thread:',index,':download ',tepi,' failed'
             #time.sleep(1)
     print 'download ',txtpath,' done-->',cnt_true,'/',l
