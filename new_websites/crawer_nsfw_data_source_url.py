@@ -4,7 +4,7 @@ Created on Feb 14, 2019
 
 @author: root
 '''
-import os,threading
+import os,threading,time
 import os.path as op
 import urllib2
 import requests
@@ -18,11 +18,11 @@ req_sess.mount('https://', HTTPAdapter(max_retries=3))
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
 outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
-thread_maxcnt=12
+thread_maxcnt=8
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
 proxy_dict_ss = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
-TIMEOUT=(8,8)
+TIMEOUT=(18,18)
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -46,10 +46,14 @@ examples:
 http://24.media.tumblr.com/b8192831bbbf40c64d9d9027aa092e02/tumblr_mi7btdQ4ui1rj6ivfo1_1280.jpg
 '''
 def imgfilecheck(fpath):
-    if (not op.exists(fpath)) or op.getsize(fpath)<=1024 or ( cv2.imread(fpath) is None):
+    tep=cv2.VideoCapture(fpath)
+    if (not op.exists(fpath)) or op.getsize(fpath)<=1024 or \
+    ( (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None) and (not tep.isOpened() ) ):
         if op.exists(fpath):os.remove(fpath)    #删除文件
         #print 'judge error:',imghdr.what(fpath)
+        tep.release()
         return False
+    tep.release()
     return True
 
 def oneurl_download(url, outp, proxy_dict=None):
@@ -83,6 +87,7 @@ def oneurl_download(url, outp, proxy_dict=None):
     except :
         # try again
         if proxy_dict is None:
+            time.sleep(1)
             print 'exception happend:trying use proxy ...'
             return oneurl_download(url, outp, proxy_dict_ss)
         else:
@@ -91,6 +96,7 @@ def oneurl_download(url, outp, proxy_dict=None):
 
 
 def one_txt_download(txtpath, outp, index=0):
+    error_fp=open(op.join(outp,'error_urls.txt'),'w+')
     cnt_true=0
     with open(txtpath,'r') as f:
         freadl=f.readlines()
@@ -104,8 +110,12 @@ def one_txt_download(txtpath, outp, index=0):
                 cnt_true+=1
                 print 'thread:',index,':download ',tepi,' success'
             else:
+                error_fp.write(tepi+'\n')
                 print 'thread:',index,':download ',tepi,' failed'
+            #time.sleep(1)
     print 'download ',txtpath,' done-->',cnt_true,'/',l
+    error_fp.write(str(cnt_true)+'/'+str(l))
+    error_fp.close()
     return cnt_true,l
 
 
@@ -126,12 +136,12 @@ def main():
             threadpool.append(t)
         else:
             while not nexti:
-                for ind in range(len(threadpool)):
-                    if not threadpool[ind].isAlive():
+                for ind2 in range(len(threadpool)):
+                    if not threadpool[ind2].isAlive():
                         print 'one thread down,creating thread :',ind
                         t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind))
                         t.start()
-                        threadpool[ind]=t
+                        threadpool[ind2]=t
                         nexti=True
                         break
     for i in threadpool:
