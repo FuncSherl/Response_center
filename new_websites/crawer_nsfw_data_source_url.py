@@ -98,6 +98,7 @@ def oneurl_download(url, outp, proxy_dict=None):
             return oneurl_download(url, outp, proxy_dict_ss)
         else:
             return False   
+    time.sleep(1)
     return imgfilecheck(outfilename)
 
 
