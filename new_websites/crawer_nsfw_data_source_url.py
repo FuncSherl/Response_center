@@ -64,11 +64,12 @@ def imgfilecheck(fpath):
 def oneurl_download(url, outp, proxy_dict=None):
     filename=op.split(url)[-1].split('?')[0]
     outfilename=op.join(outp, filename)
-    
-    if imgfilecheck(outfilename): 
-        return True
-    
     error_str=''
+    error_code=200
+    if imgfilecheck(outfilename): 
+        return True,error_code,error_str
+    
+    
     
     try:
         resp = req_sess.get(url,
@@ -77,7 +78,7 @@ def oneurl_download(url, outp, proxy_dict=None):
                             headers=headers,
                             verify=False,
                             timeout=TIMEOUT)
-        
+        error_code=resp.status_code
         if resp.status_code !=requests.codes.ok:
             print("Access Error when retrieve %s,code:%d." % (url, resp.status_code))
             raise Exception("Access Error")
@@ -100,9 +101,9 @@ def oneurl_download(url, outp, proxy_dict=None):
             print 'exception happend:trying use proxy ...'
             return oneurl_download(url, outp, proxy_dict_ss)
         else:
-            return False   
+            return False,error_code,error_str   
     time.sleep(1)
-    return imgfilecheck(outfilename),resp.status_code,error_str
+    return imgfilecheck(outfilename),error_code,error_str
 
 
 def one_txt_download(txtpath, outp, index=0):
