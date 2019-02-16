@@ -78,7 +78,7 @@ def oneurl_download(url, outp, proxy_dict=None):
                             proxies=proxy_dict,
                             headers=headers,
                             verify=False,
-                            timeout=TIMEOUT,allow_redirects=False)
+                            timeout=TIMEOUT,allow_redirects=True)
         error_code=resp.status_code
         if resp.status_code==302:
             location = resp.headers['Location'] # 注意有些header返回的Location中的url是不带host
