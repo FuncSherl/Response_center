@@ -11,9 +11,7 @@ import requests
 import imghdr,cv2
 from requests.adapters import HTTPAdapter
 
-req_sess = requests.Session()
-req_sess.mount('http://', HTTPAdapter(max_retries=3))
-req_sess.mount('https://', HTTPAdapter(max_retries=3))
+
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
@@ -64,6 +62,11 @@ def imgfilecheck(fpath):
 def oneurl_download(url, outp, proxy_dict=None):
     filename=op.split(url)[-1].split('?')[0]
     outfilename=op.join(outp, filename)
+    
+    req_sess = requests.Session()
+    req_sess.mount('http://', HTTPAdapter(max_retries=3))
+    req_sess.mount('https://', HTTPAdapter(max_retries=3))
+        
     error_str=''
     error_code=200
     if op.exists(outfilename): 
@@ -75,9 +78,13 @@ def oneurl_download(url, outp, proxy_dict=None):
                             proxies=proxy_dict,
                             headers=headers,
                             verify=False,
-                            timeout=TIMEOUT)
+                            timeout=TIMEOUT,allow_redirects=False)
         error_code=resp.status_code
-        if resp.status_code !=requests.codes.ok:
+        if resp.status_code==302:
+            location = resp.headers['Location'] # 注意有些header返回的Location中的url是不带host
+            req_sess.close()
+            return oneurl_download(location, outp, proxy_dict)
+        elif resp.status_code !=requests.codes.ok:
             print("Access Error when retrieve %s,code:%d." % (url, resp.status_code))
             raise Exception("Access Error")
         else:
@@ -93,6 +100,7 @@ def oneurl_download(url, outp, proxy_dict=None):
     except Exception as e: 
         print (e)
         error_str=str(e)
+        req_sess.close()
         # try again
         if proxy_dict is None:
             time.sleep(1)
@@ -101,6 +109,7 @@ def oneurl_download(url, outp, proxy_dict=None):
         else:
             return False,error_code,error_str   
     time.sleep(1)
+    req_sess.close()
     return imgfilecheck(outfilename),error_code,error_str
 
 
