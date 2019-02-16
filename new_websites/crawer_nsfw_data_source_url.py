@@ -66,11 +66,9 @@ def oneurl_download(url, outp, proxy_dict=None):
     outfilename=op.join(outp, filename)
     error_str=''
     error_code=200
-    if imgfilecheck(outfilename): 
+    if op.exists(outfilename): 
         return True,error_code,error_str
-    
-    
-    
+
     try:
         resp = req_sess.get(url,
                             stream=True,
