@@ -31,7 +31,7 @@ def getalltxtpath_and_buildoutputpath(ind, outd):
         tepout=op.join(outd, i)
         
         if op.isdir(tepin):
-            if not op.exists(tepout): os.makedirs(tepout)
+            #if not op.exists(tepout): os.makedirs(tepout)
             ret+=getalltxtpath_and_buildoutputpath(tepin, tepout)
         elif op.splitext(i)[-1] in ['.txt']:
             ret.append([tepin,outd])
@@ -114,6 +114,8 @@ def oneurl_download(url, outp, proxy_dict=None):
 
 
 def one_txt_download(txtpath, outp, index=0):
+    if not op.exists(outp): os.makedirs(outp)
+    
     error_fp=open(op.join(outp,'error_urls.txt'),'w+')
     cnt_true=0
     with open(txtpath,'r') as f:
