@@ -14,7 +14,7 @@ from requests.adapters import HTTPAdapter
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
+inpath=r'E:\DL_datasets\DeepVideoDeblurring_Dataset_Original_High_FPS_Videos\original_high_fps_videos' #r'/home/sherl/git/nsfw_data_source_urls/raw_data'
 outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
 thread_maxcnt=64
 
