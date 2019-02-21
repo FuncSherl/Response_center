@@ -14,8 +14,14 @@ from requests.adapters import HTTPAdapter
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-inpath=r'E:\DL_datasets\DeepVideoDeblurring_Dataset_Original_High_FPS_Videos\original_high_fps_videos' #r'/home/sherl/git/nsfw_data_source_urls/raw_data'
-outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
+pc_id=0
+if pc_id==0:
+    inpath=r'F:\workspaces\github\nsfw_data_source_urls-master/raw_data'
+    outpath=r'E:\DL_datasets\nsfw_data_source_imgs'
+elif pc_id==1: 
+    inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
+    outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
+
 thread_maxcnt=64
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
