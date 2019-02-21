@@ -180,6 +180,8 @@ if __name__ == '__main__':
     #exam=r'http://25.media.tumblr.com/0fb48d97f5c8dbc19a372fb955930b74/tumblr_mllno9cuQk1ra163eo1_1280.jpg' 
     #oneurl_download(exam, r'E:\DL_datasets')
     main()
+    
+    print ('done..')
 
 
 
