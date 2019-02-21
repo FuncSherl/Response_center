@@ -30,7 +30,7 @@ TIMEOUT=(10,40)
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-def getalltxtpath_and_buildoutputpath(ind, outd):
+def getalltxtpath_and_outputpath(ind, outd):
     ret=[]
     for i in os.listdir(ind):
         tepin=op.join(ind, i)
@@ -38,7 +38,7 @@ def getalltxtpath_and_buildoutputpath(ind, outd):
         
         if op.isdir(tepin):
             #if not op.exists(tepout): os.makedirs(tepout)
-            ret+=getalltxtpath_and_buildoutputpath(tepin, tepout)
+            ret+=getalltxtpath_and_outputpath(tepin, tepout)
         elif op.splitext(i)[-1] in ['.txt']:
             ret.append([tepin,outd])
     return ret
@@ -47,7 +47,7 @@ def getalltxtpath_and_buildoutputpath(ind, outd):
 #print paths[:5]
 '''
 examples:
-http://24.media.tumblr.com/b8192831bbbf40c64d9d9027aa092e02/tumblr_mi7btdQ4ui1rj6ivfo1_1280.jpg
+http://2*.media.tumblr.com/b8192831bbbf40c64d9d9027aa092e02/tumblr_mi7btdQ4ui1rj6ivfo1_1280.jpg
 '''
 def imgfilecheck(fpath):
     try:
@@ -150,7 +150,7 @@ def main():
     tcnt=0
     threadpool=[]
     nexti=False
-    paths=getalltxtpath_and_buildoutputpath(inpath , outpath)
+    paths=getalltxtpath_and_outputpath(inpath , outpath)
     for ind,i in enumerate(paths):
         nexti=False
         if tcnt<thread_maxcnt:
