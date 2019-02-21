@@ -170,7 +170,8 @@ def main():
                         threadpool[ind2]=t
                         nexti=True
                         break
-    for i in threadpool:
+    for indd,i in enumerate(threadpool):
+        print (indd,'/',len(threadpool),' waiting to stop..')
         i.join()
             
                 
