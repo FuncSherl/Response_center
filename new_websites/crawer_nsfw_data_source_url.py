@@ -22,7 +22,7 @@ elif pc_id==1:
     inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
     outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
 
-thread_maxcnt=10
+thread_maxcnt=1
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
 proxy_dict_ss = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
@@ -114,7 +114,7 @@ def oneurl_download(url, outp, proxy_dict=None):
             return oneurl_download(url, outp, proxy_dict_ss)
         else:
             return False,error_code,error_str   
-    time.sleep(1)
+    #time.sleep(1)
     req_sess.close()
     return imgfilecheck(outfilename),error_code,error_str
 
@@ -177,6 +177,8 @@ def main():
                 
 
 if __name__ == '__main__':
+    #exam=r'http://25.media.tumblr.com/0fb48d97f5c8dbc19a372fb955930b74/tumblr_mllno9cuQk1ra163eo1_1280.jpg' 
+    #oneurl_download(exam, r'E:\DL_datasets')
     main()
 
 
