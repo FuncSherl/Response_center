@@ -62,6 +62,7 @@ def imgfilecheck(fpath):
         return True
     except Exception as e: 
         tep.release()
+        if op.exists(fpath):os.remove(fpath)    #删除文件
         print e
         return False
 
