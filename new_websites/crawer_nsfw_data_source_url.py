@@ -16,8 +16,8 @@ from requests.adapters import HTTPAdapter
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 pc_id=0
 if pc_id==0:
-    inpath=r'F:\workspaces\github\nsfw_data_source_urls-master/raw_data'
-    outpath=r'E:\DL_datasets\nsfw_data_source_imgs'
+    inpath=r'F:/workspaces/github/nsfw_data_source_urls-master/raw_data'
+    outpath=r'E:/DL_datasets/nsfw_data_source_imgs'
 elif pc_id==1: 
     inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
     outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
