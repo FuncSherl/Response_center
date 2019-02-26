@@ -22,7 +22,7 @@ elif pc_id==1:
     inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
     outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
 
-thread_maxcnt=10 #1 是为了找到错误原因
+thread_maxcnt=16 #1 是为了找到错误原因
 start_cnt=300  #从哪个txt开始，这个是为了尽快找到错误原因
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
