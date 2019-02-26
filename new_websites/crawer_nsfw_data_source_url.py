@@ -130,7 +130,7 @@ def one_txt_download(txtpath, outp, index=0):
         freadl=f.readlines()
         l=len(freadl)
         for ind,i in enumerate(freadl):
-            print ind,'/',l,' thread:',index
+            print '\n',ind,'/',l,' thread:',index
             tepi=i.strip()
             res,ecode,estr=oneurl_download(tepi, outp)
             
