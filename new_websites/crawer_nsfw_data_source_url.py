@@ -157,9 +157,9 @@ def main():
         nexti=False
         if tcnt<thread_maxcnt:
             tcnt+=1
-            print 'txt file cnts:',ind,'/',len(paths)
-            print 'creating thread:',ind
-            t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind))
+            print 'start from:',start_cnt,' txt file cnts:',ind,'/',len(paths)
+            print 'creating thread:',ind+start_cnt
+            t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind+start_cnt))
             t.start()
             threadpool.append(t)
         else:
@@ -167,7 +167,7 @@ def main():
                 for ind2 in range(len(threadpool)):
                     if not threadpool[ind2].isAlive():
                         print 'one thread down,creating thread :',ind
-                        t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind))
+                        t = threading.Thread(target=one_txt_download, args=(i[0],i[1], ind+start_cnt))
                         t.start()
                         threadpool[ind2]=t
                         nexti=True
