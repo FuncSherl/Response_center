@@ -10,6 +10,7 @@ import urllib2
 import requests
 import imghdr,cv2
 from requests.adapters import HTTPAdapter
+from astropy.units import fPa
 
 
 
@@ -23,11 +24,11 @@ elif pc_id==1:
     outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
 
 thread_maxcnt=16 #1 是为了找到错误原因
-start_cnt=300  #从哪个txt开始，这个是为了尽快找到错误原因
+start_cnt=0  #从哪个txt开始，这个是为了尽快找到错误原因
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
 proxy_dict_ss = {'http': 'socks5://127.0.0.1:1080','https':'socks5://127.0.0.1:1080'}#use local socket5 proxy,with shadowshocks
-TIMEOUT=(10,40)
+TIMEOUT=(8,16)
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -51,18 +52,31 @@ examples:
 http://2*.media.tumblr.com/b8192831bbbf40c64d9d9027aa092e02/tumblr_mi7btdQ4ui1rj6ivfo1_1280.jpg
 '''
 def imgfilecheck(fpath):
+    tep=None
     try:
-        tep=cv2.VideoCapture(fpath)
-        if (not op.exists(fpath)) or op.getsize(fpath)<=1024 or \
-        ( (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None) and (not tep.isOpened() ) ):
-            if op.exists(fpath):os.remove(fpath)    #删除文件
-            #print 'judge error:',imghdr.what(fpath)
-            tep.release()
-            return False
-        tep.release()
-        return True
+        if (not op.exists(fpath)):
+            print 'judge error:',op.split(fpath)[-1],' not exists'
+            
+        elif op.getsize(fpath)<10240: #小于10k的文件不要
+            print 'judge error:',op.split(fpath)[-1],' too small size:',op.getsize(fpath)
+            
+        elif (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None):
+            tep=cv2.VideoCapture(fpath)
+            if (not tep.isOpened() ):
+                tep.release()
+                print 'judge error:',op.split(fpath)[-1],' not a img or video'
+            else:
+                tep.release()
+                return True
+
+        else:
+            return True
+        
+        if op.exists(fpath):os.remove(fpath)    #删除文件
+        return False
+        
     except Exception as e: 
-        tep.release()
+        if tep: tep.release()
         if op.exists(fpath):os.remove(fpath)    #删除文件
         print e
         return False
@@ -70,6 +84,10 @@ def imgfilecheck(fpath):
 def oneurl_download(url, outp, proxy_dict=None):
     filename=op.split(url)[-1].split('?')[0]
     outfilename=op.join(outp, filename)
+    
+    if len(op.splitext(outfilename)[-1])<=0: #有些连接后面没有文件类型
+        if op.exists(outfilename): os.remove(outfilename)  #前面有些是下载好的，就直接删掉重新下就好
+        outfilename+='.jpg'
     
     req_sess = requests.Session()
     req_sess.mount('http://', HTTPAdapter(max_retries=3))
