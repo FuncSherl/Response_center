@@ -6,7 +6,7 @@ Created on Feb 14, 2019
 '''
 import os,threading,time
 import os.path as op
-import urllib2
+import urllib
 import requests
 import imghdr,cv2
 from requests.adapters import HTTPAdapter
@@ -23,7 +23,7 @@ elif pc_id==1:
     inpath=r'/home/sherl/git/nsfw_data_source_urls/raw_data'
     outpath=r'/media/sherl/本地磁盘/data_DL/nsfw_data_source_imgs'
 
-thread_maxcnt=16 #1 是为了找到错误原因
+thread_maxcnt=16 #1 是为了找到错误原因 -->当文件name中有%201时，cv2.VidwoCapture(name)会出错
 start_cnt=0  #从哪个txt开始，这个是为了尽快找到错误原因
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
@@ -60,7 +60,7 @@ def imgfilecheck(fpath):
         elif op.getsize(fpath)<10240: #小于10k的文件不要
             print 'judge error:',op.split(fpath)[-1],' too small size:',op.getsize(fpath)
             
-        elif (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None):
+        elif (cv2.imread(fpath) is None ) and (imghdr.what(fpath) is None):            
             tep=cv2.VideoCapture(fpath)
             if (not tep.isOpened() ):
                 tep.release()
@@ -78,11 +78,13 @@ def imgfilecheck(fpath):
     except Exception as e: 
         if tep: tep.release()
         if op.exists(fpath):os.remove(fpath)    #删除文件
-        print e
+        print 'imgfilecheck:',e
         return False
 
 def oneurl_download(url, outp, proxy_dict=None):
     filename=op.split(url)[-1].split('?')[0]
+    filename=urllib.unquote(filename)
+    
     outfilename=op.join(outp, filename)
     
     if len(op.splitext(outfilename)[-1])<=0: #有些连接后面没有文件类型
@@ -149,11 +151,12 @@ def one_txt_download(txtpath, outp, index=0):
         l=len(freadl)
         for ind,i in enumerate(freadl):
             print '\n',ind,'/',l,' thread:',index
+            print  outp
             tepi=i.strip()
             res,ecode,estr=oneurl_download(tepi, outp)
             
             if res:
-                cnt_true+=1
+                cnt_true+=1                
                 print 'thread:',index,':download ',tepi,' success'
             else:
                 error_fp.write(tepi+' '+str(ecode)+' '+estr+'\n')
