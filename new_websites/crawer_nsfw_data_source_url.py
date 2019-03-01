@@ -97,8 +97,8 @@ def oneurl_download(url, outp, proxy_dict=None):
         
     error_str=''
     error_code=200
-    #if op.exists(outfilename):  return True,error_code,error_str
-    if imgfilecheck(outfilename): return True,error_code,error_str
+    if op.exists(outfilename):  return True,error_code,error_str
+    #if imgfilecheck(outfilename): return True,error_code,error_str
 
     try:
         resp = req_sess.get(url,
